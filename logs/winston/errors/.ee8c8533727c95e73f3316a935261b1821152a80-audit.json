@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/.ee8c8533727c95e73f3316a935261b1821152a80-audit.json",
+    "files": [
+        {
+            "date": 1692355256077,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-18-08-12-error.log",
+            "hash": "ca5efe5d90840352633fd88338687237f971c64cc2915c6c208af52decb034b5"
+        },
+        {
+            "date": 1692356651791,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-18-08-13-error.log",
+            "hash": "cfe2488d98c3229068e4117bdb77887dcc6b5eda5e9195967fd33839681844f3"
+        }
+    ],
+    "hashType": "sha256"
+}
