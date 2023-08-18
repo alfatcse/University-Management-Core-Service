@@ -5,11 +5,11 @@
 
 */
 -- AlterTable
-ALTER TABLE "academic_semesters" DROP COLUMN "year",
-ADD COLUMN     "year" INTEGER NOT NULL;
+ALTER TABLE "Faculties" ALTER COLUMN "contactNo" SET DATA TYPE TEXT;
 
 -- AlterTable
-ALTER TABLE "faculties" ALTER COLUMN "contactNo" SET DATA TYPE TEXT;
+ALTER TABLE "academic_semesters" DROP COLUMN "year",
+ADD COLUMN     "year" INTEGER NOT NULL;
 
 -- AlterTable
 ALTER TABLE "students" ALTER COLUMN "contactNo" SET DATA TYPE TEXT;
