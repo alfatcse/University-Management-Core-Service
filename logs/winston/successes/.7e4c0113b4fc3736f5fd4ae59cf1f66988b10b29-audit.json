@@ -64,6 +64,11 @@
             "date": 1692653515507,
             "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-21-08-23-success.log",
             "hash": "1a733b7ee00d377a3983bbab90f779f9d1ea80c4f0017a83c4c27127669bd02c"
+        },
+        {
+            "date": 1692656781739,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-22-08-00-success.log",
+            "hash": "e870688e53a3ca5cbaed13e5441019849693ca9740496360a963e617c9d81f40"
         }
     ],
     "hashType": "sha256"
