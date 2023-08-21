@@ -19,7 +19,6 @@ const auth =
       let verifiedUser = null;
 
       verifiedUser = jwtHelpers.verifyToken(token, config.jwt.secret as Secret);
-      console.log('verifiedUser', verifiedUser);
       req.user = verifiedUser; // role  , userid
 
       // role diye guard korar jnno
