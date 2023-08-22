@@ -1,3 +1,5 @@
+import httpStatus from 'http-status';
+import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
 const insertIntoDb = async (data: any): Promise<any> => {
   const { preRequisiteCourses, ...courseData } = data;
@@ -5,6 +7,9 @@ const insertIntoDb = async (data: any): Promise<any> => {
     const result = await transactionClient.course.create({
       data: courseData,
     });
+    if (!result) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Unable to create course');
+    }
     if (preRequisiteCourses && preRequisiteCourses.length > 0) {
       for (let index = 0; index < preRequisiteCourses.length; index++) {
         const createPrerequisite =
