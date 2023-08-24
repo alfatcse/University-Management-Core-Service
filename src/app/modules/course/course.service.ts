@@ -163,7 +163,9 @@ const updateInDB = async (
   id: string,
   payload: ICourseCreateData
 ): Promise<Course | null> => {
+  console.log(payload);
   const { preRequisiteCourses, ...courseData } = payload;
+  console.log(preRequisiteCourses);
   await prisma.$transaction(async transactionClient => {
     const result = await transactionClient.course.update({
       where: { id },
@@ -203,8 +205,24 @@ const updateInDB = async (
       }
     }
   });
-
-  return result;
+  const responseData = await prisma.course.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      preRequisite: {
+        include: {
+          preRequisite: true,
+        },
+      },
+      preRequisiteFor: {
+        include: {
+          course: true,
+        },
+      },
+    },
+  });
+  return responseData;
 };
 export const CourseService = {
   insertIntoDb,
