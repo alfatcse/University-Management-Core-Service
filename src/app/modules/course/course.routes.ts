@@ -26,4 +26,5 @@ router.patch(
   CourseController.updateOneInDB
 );
 router.post('/:id/assign-faculties', CourseController.assignFaculties);
+router.delete('/:id/remove-faculties', CourseController.removeFaculties);
 export const CourseRoute = router;
