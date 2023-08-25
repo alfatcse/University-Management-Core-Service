@@ -5,10 +5,8 @@ import validateRequest from '../../middlewares/validateRequest';
 import { CourseController } from './course.controller';
 import { CourseValidation } from './course.validations';
 const router = express.Router();
-
 router.get('/', CourseController.getAllFromDB);
 router.get('/:id', CourseController.getByIdFromDB);
-
 router.post(
   '/',
   validateRequest(CourseValidation.create),
@@ -25,6 +23,16 @@ router.patch(
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   CourseController.updateOneInDB
 );
-router.post('/:id/assign-faculties', CourseController.assignFaculties);
-router.delete('/:id/remove-faculties', CourseController.removeFaculties);
+router.post(
+  '/:id/assign-faculties',
+  validateRequest(CourseValidation.assignOrRemoveFaculties),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  CourseController.assignFaculties
+);
+router.delete(
+  '/:id/remove-faculties',
+  validateRequest(CourseValidation.assignOrRemoveFaculties),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  CourseController.removeFaculties
+);
 export const CourseRoute = router;
