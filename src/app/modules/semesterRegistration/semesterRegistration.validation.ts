@@ -23,7 +23,14 @@ const create = z.object({
 });
 
 const update = z.object({
-  body: z.object({}),
+  body: z.object({
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+    status: z.string().optional(),
+    minCredit: z.number().optional(),
+    maxCredit: z.number().optional(),
+    academicSemesterId: z.string().optional(),
+  }),
 });
 
 export const CourseValidation = {
