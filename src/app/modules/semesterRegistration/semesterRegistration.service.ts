@@ -108,9 +108,23 @@ const getAllFromDB = async (
     data: result,
   };
 };
+const updateOneDB = async (
+  id: string,
+  payload: Partial<SemesterRegistration>
+): Promise<SemesterRegistration> => {
+  const result = await prisma.semesterRegistration.update({
+    where: { id },
+    data: payload,
+    include: {
+      academicSemester: true,
+    },
+  });
+  return result;
+};
 export const semesterRegistrationService = {
   insertIntoDB,
   getByIdFromDB,
   removeSemesterRegistration,
   getAllFromDB,
+  updateOneDB,
 };

@@ -18,4 +18,5 @@ router.delete(
   SemesterRegistrationController.removeSemesterRegistration
 );
 router.get('/', SemesterRegistrationController.getAllFromDB);
+router.patch('/:id', SemesterRegistrationController.updateOneDB);
 export const semesterRegistrationRoutes = router;
