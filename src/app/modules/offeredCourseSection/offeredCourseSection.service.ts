@@ -1,9 +1,19 @@
-import { OfferedCourseSection } from '@prisma/client';
+import httpStatus from 'http-status';
+import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
-const insertIntoDB = async (
-  data: OfferedCourseSection
-): Promise<OfferedCourseSection> => {
-  console.log('dddd', data);
+const insertIntoDB = async (data: any): Promise<any> => {
+  const isExistOfferedCourse = await prisma.offeredCourse.findFirst({
+    where: {
+      id: data.offeredCourseId,
+    },
+  });
+  if (!isExistOfferedCourse) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'Offered Course Does not exist!'
+    );
+  }
+  data.semesterRegistrationId = isExistOfferedCourse.semesterRegistrationId;
   const result = await prisma.offeredCourseSection.create({ data });
   return result;
 };
