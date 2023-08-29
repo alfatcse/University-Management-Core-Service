@@ -14,6 +14,7 @@ import {
 } from './course.interface';
 const insertIntoDb = async (data: ICourseCreateData): Promise<any> => {
   const { preRequisiteCourses, ...courseData } = data;
+  console.log(data);
   const newCourse = await prisma.$transaction(async transactionClient => {
     const result = await transactionClient.course.create({
       data: courseData,
