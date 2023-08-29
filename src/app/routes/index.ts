@@ -6,6 +6,7 @@ import { buildingRoutes } from '../modules/building/building.routes';
 import { CourseRoute } from '../modules/course/course.routes';
 import { facultyRoutes } from '../modules/faculty/faculty.routes';
 import { offeredCourseRoutes } from '../modules/offeredCourse/offeredCourse.router';
+import { offeredCourseClassScheduleRoutes } from '../modules/offeredCourseClassSchedule/offeredCourseClassSchedule.routes';
 import { offeredCourseSectionRoutes } from '../modules/offeredCourseSection/offeredCourseSection.route';
 import { RoomRoutes } from '../modules/room/room.routes';
 import { semesterRegistrationRoutes } from '../modules/semesterRegistration/semesterRegistration.route';
@@ -55,6 +56,10 @@ const moduleRoutes = [
   {
     path: '/offered-course-section',
     route: offeredCourseSectionRoutes,
+  },
+  {
+    path: '/offered-course-class-schedules',
+    route: offeredCourseClassScheduleRoutes,
   },
 ];
 moduleRoutes.forEach(route => router.use(route.path, route.route));

@@ -9,4 +9,5 @@ router.post(
   OfferedCourseSectionController.insertIntoDB
 );
 router.get('/:id', OfferedCourseSectionController.getByIdFromDB);
+router.get('/', OfferedCourseSectionController.getAllFromDB);
 export const offeredCourseSectionRoutes = router;
