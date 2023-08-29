@@ -1,4 +1,7 @@
 import { OfferedCourse } from '@prisma/client';
+import { paginationHelpers } from '../../../helpers/paginationHelper';
+import { IGenericResponse } from '../../../interfaces/common';
+import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
 import { asyForEach } from '../../../shared/utils';
 import { ICreateOfferedCourse } from './offeredCourse.interface';
@@ -29,4 +32,44 @@ const insertIntoDB = async (
   });
   return result;
 };
-export const offeredCourseService = { insertIntoDB };
+const getAllFromDB = async (
+  options: IPaginationOptions
+): Promise<IGenericResponse<OfferedCourse[] | null>> => {
+  const { limit, page, skip } = paginationHelpers.calculatePagination(options);
+  const result = await prisma.offeredCourse.findMany({
+    include: {
+      course: true,
+      academicDepartment: true,
+      semesterRegistration: true,
+      OfferedCourseSections: true,
+    },
+    skip,
+    take: limit,
+    orderBy:
+      options.sortBy && options.sortOrder
+        ? { [options.sortBy]: options.sortOrder }
+        : {
+            createdAt: 'desc',
+          },
+  });
+  const total = await prisma.offeredCourse.count();
+  return {
+    meta: {
+      total,
+      page,
+      limit,
+    },
+    data: result,
+  };
+};
+const getByIdFromDB = async (id: string): Promise<OfferedCourse | null> => {
+  const result = await prisma.offeredCourse.findUnique({
+    where: { id },
+  });
+  return result;
+};
+export const offeredCourseService = {
+  insertIntoDB,
+  getAllFromDB,
+  getByIdFromDB,
+};

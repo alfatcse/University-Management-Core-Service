@@ -9,7 +9,6 @@ import {
   facultySearchableFields,
 } from './faculty.constants';
 import { IFacultyFilterRequest } from './faculty.interface';
-
 const insertIntoDB = async (data: Faculty): Promise<Faculty> => {
   const result = await prisma.faculty.create({
     data,
@@ -20,7 +19,6 @@ const insertIntoDB = async (data: Faculty): Promise<Faculty> => {
   });
   return result;
 };
-
 const getAllFromDB = async (
   filters: IFacultyFilterRequest,
   options: IPaginationOptions
@@ -92,7 +90,6 @@ const getAllFromDB = async (
     data: result,
   };
 };
-
 const getByIdFromDB = async (id: string): Promise<Faculty | null> => {
   const result = await prisma.faculty.findUnique({
     where: {
@@ -121,7 +118,6 @@ const updateOneInDB = async (
   });
   return result;
 };
-
 const deleteByIdFromDB = async (id: string): Promise<Faculty> => {
   const result = await prisma.faculty.delete({
     where: {

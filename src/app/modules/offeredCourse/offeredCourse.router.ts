@@ -5,10 +5,13 @@ import validateRequest from '../../middlewares/validateRequest';
 import { OfferedCourseController } from './offeredCourse.controller';
 import { OfferedCourseValidation } from './offeredCourse.validation';
 const router = express.Router();
+router.get('/', OfferedCourseController.getAllFromDB);
+router.get('/:id', OfferedCourseController.getByIdFromDB);
 router.post(
   '/',
   validateRequest(OfferedCourseValidation.create),
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   OfferedCourseController.insertIntoDB
 );
+
 export const offeredCourseRoutes = router;

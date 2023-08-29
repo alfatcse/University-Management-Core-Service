@@ -9,6 +9,16 @@
             "date": 1693267283147,
             "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-29-08-02-success.log",
             "hash": "12c168edbfeefb5b3f641941489447f1286defa42be914c4dff5ae1e6fddb55f"
+        },
+        {
+            "date": 1693304797328,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-29-08-12-success.log",
+            "hash": "d1a11ac322e096e78e2f72a73375e881533799d0caf62b8b741ec977e79c5d6a"
+        },
+        {
+            "date": 1693307305226,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-29-08-13-success.log",
+            "hash": "f3b2573abeaba843a3e735e0d9a812823159adb2871d6e618f9e4f2570722241"
         }
     ],
     "hashType": "sha256"
