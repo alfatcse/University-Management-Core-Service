@@ -2,6 +2,7 @@ import { OfferedCourseClassSchedule } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
+import { hasTimeConflict } from '../../../shared/utils';
 
 const insertIntoDB = async (
   data: OfferedCourseClassSchedule
@@ -20,20 +21,14 @@ const insertIntoDB = async (
     endTime: schedule.endTime,
     dayOfWeek: schedule.dayOfWeek,
   }));
-  console.log(existingSlots);
   const newSlot = {
     startTime: data.startTime,
     endTime: data.endTime,
     dayOfWeek: data.dayOfWeek,
   };
-  for (const slot of existingSlots) {
-    const existingStart = new Date(`1970-01-01T${slot.startTime}:00`);
-    const existingEnd = new Date(`1970-01-01T${slot.startTime}:00`);
-    const newStart = new Date(`1970-01-01T${newSlot.startTime}:00`);
-    const newEnd = new Date(`1970-01-01T${newSlot.startTime}:00`);
-    if (newStart < existingEnd && newEnd > existingStart) {
-      throw new ApiError(httpStatus.CONFLICT, 'Room is already Booked');
-    }
+
+  if (hasTimeConflict(existingSlots, newSlot)) {
+    throw new ApiError(httpStatus.CONFLICT, 'Room is already booked!');
   }
   const result = await prisma.offeredCourseClassSchedule.create({
     data,
