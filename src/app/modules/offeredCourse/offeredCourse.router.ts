@@ -13,5 +13,5 @@ router.post(
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   OfferedCourseController.insertIntoDB
 );
-
+router.delete('/:id', OfferedCourseController.deleteByIdFromDB);
 export const offeredCourseRoutes = router;

@@ -30,8 +30,18 @@ const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
+  const result = await offeredCourseService.deleteByIdFromDB(req.params.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Offered Course Fetched',
+    data: result,
+  });
+});
 export const OfferedCourseController = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
+  deleteByIdFromDB,
 };

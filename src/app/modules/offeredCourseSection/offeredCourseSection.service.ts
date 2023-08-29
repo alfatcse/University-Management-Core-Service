@@ -1,3 +1,4 @@
+import { OfferedCourseSection } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
@@ -17,7 +18,15 @@ const insertIntoDB = async (data: any): Promise<any> => {
   const result = await prisma.offeredCourseSection.create({ data });
   return result;
 };
-
+const getByIdFromDB = async (
+  id: string
+): Promise<OfferedCourseSection | null> => {
+  const result = await prisma.offeredCourseSection.findUnique({
+    where: { id },
+  });
+  return result;
+};
 export const offeredCourseSectionService = {
   insertIntoDB,
+  getByIdFromDB,
 };

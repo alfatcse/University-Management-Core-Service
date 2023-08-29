@@ -13,6 +13,16 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
+  const result = await offeredCourseSectionService.getByIdFromDB(req.params.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Offered Course Section Created',
+    data: result,
+  });
+});
 export const OfferedCourseSectionController = {
   insertIntoDB,
+  getByIdFromDB,
 };

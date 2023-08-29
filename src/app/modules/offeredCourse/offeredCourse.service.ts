@@ -68,8 +68,15 @@ const getByIdFromDB = async (id: string): Promise<OfferedCourse | null> => {
   });
   return result;
 };
+const deleteByIdFromDB = async (id: string): Promise<OfferedCourse | null> => {
+  const result = await prisma.offeredCourse.delete({
+    where: { id },
+  });
+  return result;
+};
 export const offeredCourseService = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
+  deleteByIdFromDB,
 };
