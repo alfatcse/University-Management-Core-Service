@@ -15,6 +15,7 @@ const insertIntoDB = async (
   data: OfferedCourseClassSchedule
 ): Promise<OfferedCourseClassSchedule> => {
   await OfferedCourseClassScheduleUtils.checkRoomAvailable(data);
+  await OfferedCourseClassScheduleUtils.checkFacultyAvailable(data);
   const result = await prisma.offeredCourseClassSchedule.create({
     data,
     include: {
@@ -43,7 +44,6 @@ const getAllFromDB = async (
       })),
     });
   }
-
   if (Object.keys(filterData).length > 0) {
     andConditions.push({
       AND: Object.keys(filterData).map(key => {

@@ -59,6 +59,36 @@
             "date": 1693346451214,
             "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-30-08-00-success.log",
             "hash": "740014b8b4bc76ee8933799379b49a72e8f3f97d093ceaca8161217b08ccb890"
+        },
+        {
+            "date": 1693403228181,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-30-08-15-success.log",
+            "hash": "f143289c9872121fd767d402fead024e3437344b0f164894f6cfe78b35245e89"
+        },
+        {
+            "date": 1693411342364,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-30-08-18-success.log",
+            "hash": "b8d12c873ddcd456ec6090aabf10fb068f7f751f15d515bbd72c73332c4b9672"
+        },
+        {
+            "date": 1693415076368,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-30-08-19-success.log",
+            "hash": "0b9c057908106d439bd962ca5238dde0fed433aab46c5224678f1e83abacd443"
+        },
+        {
+            "date": 1693418538465,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-30-08-20-success.log",
+            "hash": "d869402323c292a249bd09757ef8b652583b8ec90e27264031c20c342dd6f2f6"
+        },
+        {
+            "date": 1693424461673,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-30-08-21-success.log",
+            "hash": "3d944363cc1c446e72abef046965abd8db0a5f748cd398b8ad48ec6893f02125"
+        },
+        {
+            "date": 1693425608262,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-30-08-22-success.log",
+            "hash": "15272465f42b92095e2d938235eae5d9d7ec342681892c5047dc8a1542c02071"
         }
     ],
     "hashType": "sha256"
