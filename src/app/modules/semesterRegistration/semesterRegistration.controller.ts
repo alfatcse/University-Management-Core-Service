@@ -7,6 +7,7 @@ import { RegistrationFilterableFields } from './semesterRegistration.constants';
 import { semesterRegistrationService } from './semesterRegistration.service';
 
 const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.body);
   const result = await semesterRegistrationService.insertIntoDB(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -88,6 +89,19 @@ const enrollIntoCourse = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const withdrewFromCourse = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  const result = await semesterRegistrationService.withdrewFromCourse(
+    user.userId,
+    req.body
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student Withdraw from course Successfully',
+    data: result,
+  });
+});
 export const SemesterRegistrationController = {
   insertIntoDB,
   getByIdFromDB,
@@ -96,4 +110,5 @@ export const SemesterRegistrationController = {
   updateOneDB,
   startMyRegistration,
   enrollIntoCourse,
+  withdrewFromCourse,
 };
