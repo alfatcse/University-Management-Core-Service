@@ -11,7 +11,10 @@ import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
 import { RegistrationSearchableFields } from './semesterRegistration.constants';
-import { IRegistrationFilterRequest } from './semesterRegistration.interface';
+import {
+  IEnrollCoursePayload,
+  IRegistrationFilterRequest,
+} from './semesterRegistration.interface';
 const insertIntoDB = async (
   data: SemesterRegistration
 ): Promise<SemesterRegistration> => {
@@ -217,6 +220,36 @@ const startMyRegistration = async (
     studentSemesterRegistration: studentRegistration,
   };
 };
+const enrollIntoCourse = async (
+  authUserId: string,
+  payload: IEnrollCoursePayload
+) => {
+  const student = await prisma.student.findFirst({
+    where: {
+      studentId: authUserId,
+    },
+  });
+  if (!student) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Student not found');
+  }
+  const semesterRegistration = await prisma.semesterRegistration.findFirst({
+    where: {
+      status: SemesterRegistrationStatus.ONGOING,
+    },
+  });
+  if (!semesterRegistration) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'No Current Semester found');
+  }
+  const enrollCourse = await prisma.studentSemesterRegistrationCourse.create({
+    data: {
+      studentId: student?.id,
+      semesterRegistrationId: semesterRegistration?.id,
+      offeredCourseId: payload.offeredCourseId,
+      offeredCourseSectionId: payload.offeredCourseSectionId,
+    },
+  });
+  return enrollCourse;
+};
 export const semesterRegistrationService = {
   insertIntoDB,
   getByIdFromDB,
@@ -224,4 +257,5 @@ export const semesterRegistrationService = {
   getAllFromDB,
   updateOneDB,
   startMyRegistration,
+  enrollIntoCourse,
 };

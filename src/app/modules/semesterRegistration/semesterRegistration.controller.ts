@@ -65,7 +65,6 @@ const updateOneDB = catchAsync(async (req: Request, res: Response) => {
 });
 const startMyRegistration = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
-  console.log(user);
   const result = await semesterRegistrationService.startMyRegistration(
     user.userId
   );
@@ -76,6 +75,19 @@ const startMyRegistration = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const enrollIntoCourse = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  const result = await semesterRegistrationService.enrollIntoCourse(
+    user.userId,
+    req.body
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student Semester Registration enrolled Successfully',
+    data: result,
+  });
+});
 export const SemesterRegistrationController = {
   insertIntoDB,
   getByIdFromDB,
@@ -83,4 +95,5 @@ export const SemesterRegistrationController = {
   getAllFromDB,
   updateOneDB,
   startMyRegistration,
+  enrollIntoCourse,
 };
