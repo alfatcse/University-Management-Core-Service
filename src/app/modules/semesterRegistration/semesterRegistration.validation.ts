@@ -38,7 +38,7 @@ const update = z.object({
     academicSemesterId: z.string().optional(),
   }),
 });
-const enrollIntoCourse = z.object({
+const enrollOrWithDrawCourse = z.object({
   body: z.object({
     offeredCourseId: z.string({
       required_error: 'Offered Course Id is required',
@@ -51,5 +51,5 @@ const enrollIntoCourse = z.object({
 export const SemesterRegistrationValidation = {
   create,
   update,
-  enrollIntoCourse,
+  enrollOrWithDrawCourse,
 };
