@@ -306,6 +306,8 @@ model StudentEnrolledCourse {
   totlaMarks                 Int?                        @default(0)
   status                     StudentEnrolledCourseStatus @default(ONGOING)
   studentEnrolledCourseMarks StudentEnrolledCourseMark[]
+
+  @@map("student_enrolled_courses")
 }
 
 enum StudentEnrolledCourseStatus {
@@ -348,6 +350,7 @@ model StudentSemesterPayment {
   partialPaymentAmount Int?             @default(0)
   totalPaidAmount      Int?             @default(0)
   paymentStatus        PaymentStatus?   @default(PENDING)
+  totalDueAmount       Int?             @default(0)
 
   @@map("student_semester_payment")
 }
