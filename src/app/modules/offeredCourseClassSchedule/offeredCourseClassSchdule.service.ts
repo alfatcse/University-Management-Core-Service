@@ -8,8 +8,8 @@ import {
   offeredCourseClassScheduleRelationalFieldsMapper,
   offeredCourseClassScheduleSearchableFields,
 } from './OfferedCourseClassSchedule.constants';
-import { OfferedCourseClassScheduleUtils } from './offeredCourseClassSchdule.utils';
 import { IOfferedCourseClassScheduleFilterRequest } from './offeredCourseClassSchedule.interface';
+import { OfferedCourseClassScheduleUtils } from './offeredCourseClassSchedule.utils';
 
 const insertIntoDB = async (
   data: OfferedCourseClassSchedule
