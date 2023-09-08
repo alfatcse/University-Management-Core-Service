@@ -80,6 +80,7 @@ model Student {
   studentEnrolledCourses             StudentEnrolledCourse[]
   studentEnrolledCourseMarks         StudentEnrolledCourseMark[]
   studentSemesterPayments            StudentSemesterPayment[]
+  studentAcademicInfos               StudentAcademicInfo[]
 
   @@map("students")
 }
@@ -303,7 +304,7 @@ model StudentEnrolledCourse {
   academicSemester           AcademicSemester            @relation(fields: [academicSemesterId], references: [id])
   grade                      String?
   point                      Float                       @default(0)
-  totlaMarks                 Int?                        @default(0)
+  totalMarks                 Int?                        @default(0)
   status                     StudentEnrolledCourseStatus @default(ONGOING)
   studentEnrolledCourseMarks StudentEnrolledCourseMark[]
 
@@ -359,4 +360,16 @@ enum PaymentStatus {
   PENDING
   PARTIAL_PAID
   FULL_PAID
+}
+
+model StudentAcademicInfo {
+  id                   String   @id @default(uuid())
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  studentId            String
+  student              Student  @relation(fields: [studentId], references: [id])
+  totalCompletedCredit Int?     @default(0)
+  cgpa                 Float?   @default(0)
+
+  @@map("student_academic_infos")
 }

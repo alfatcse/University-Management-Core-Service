@@ -5,4 +5,8 @@ router.patch(
   '/update-marks',
   StudentEnrolledCourseMarkController.updateStudentMarks
 );
+router.patch(
+  '/update-final-marks',
+  StudentEnrolledCourseMarkController.updateFinalMarks
+);
 export const studentEnrolledCourseMarkRoute = router;

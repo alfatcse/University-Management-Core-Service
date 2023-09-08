@@ -5,7 +5,9 @@ import sendResponse from '../../../shared/sendResponse';
 import { studentEnrolledCourseMarkService } from './studentEnrolledCourseMark.service';
 
 const updateStudentMarks = catchAsync(async (req: Request, res: Response) => {
-  const result = studentEnrolledCourseMarkService.updateStudentMarks(req.body);
+  const result = await studentEnrolledCourseMarkService.updateStudentMarks(
+    req.body
+  );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -13,6 +15,18 @@ const updateStudentMarks = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const updateFinalMarks = catchAsync(async (req: Request, res: Response) => {
+  const result = await studentEnrolledCourseMarkService.updateFinalMarks(
+    req.body
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Final Marks Updated',
+    data: result,
+  });
+});
 export const StudentEnrolledCourseMarkController = {
   updateStudentMarks,
+  updateFinalMarks,
 };

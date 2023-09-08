@@ -357,12 +357,12 @@ const startNewSemester = async (
       'Semester registration not ended yet'
     );
   }
-  // if (semesterRegistration.academicSemester.isCurrent === true) {
-  //   throw new ApiError(
-  //     httpStatus.BAD_REQUEST,
-  //     'Semester registration already started'
-  //   );
-  // }
+  if (semesterRegistration.academicSemester.isCurrent === true) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'Semester registration already started'
+    );
+  }
   await prisma.$transaction(async prismaTransactionClient => {
     await prismaTransactionClient.academicSemester.updateMany({
       where: { isCurrent: true },
@@ -436,7 +436,6 @@ const startNewSemester = async (
                 courseId: item.offeredCourse.courseId,
                 academicSemesterId: semesterRegistration.academicSemesterId,
               };
-
               const studentEnrolledCourseData =
                 await prisma.studentEnrolledCourse.create({
                   data: enrolledCourseData,
