@@ -346,7 +346,7 @@ model StudentSemesterPayment {
   student              Student          @relation(fields: [studentId], references: [id])
   academicSemesterId   String
   academicSemester     AcademicSemester @relation(fields: [academicSemesterId], references: [id])
-  fullpaymentAmount    Int?             @default(0)
+  fullPaymentAmount    Int?             @default(0)
   partialPaymentAmount Int?             @default(0)
   totalPaidAmount      Int?             @default(0)
   paymentStatus        PaymentStatus?   @default(PENDING)
