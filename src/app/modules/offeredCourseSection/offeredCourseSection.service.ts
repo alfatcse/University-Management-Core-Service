@@ -12,9 +12,13 @@ import {
   offeredCourseSectionRelationalFieldsMapper,
   offeredCourseSectionSearchableFields,
 } from './offeredCourseSection.constants';
-import { IOfferedCourseSectionFilterRequest } from './offeredCourseSection.interface';
+import {
+  IClassSchedule,
+  IOfferedCourseSectionCreate,
+  IOfferedCourseSectionFilterRequest,
+} from './offeredCourseSection.interface';
 const insertIntoDB = async (
-  payload: any
+  payload: IOfferedCourseSectionCreate
 ): Promise<OfferedCourseSection | null> => {
   const { classSchedules, ...data } = payload;
   console.log('data:', classSchedules);
@@ -30,7 +34,6 @@ const insertIntoDB = async (
       'Offered Course Does not exist!'
     );
   }
-  data.semesterRegistrationId = isExistOfferedCourse.semesterRegistrationId;
   await asyForEach(classSchedules, async (schedule: any) => {
     await OfferedCourseClassScheduleUtils.checkRoomAvailable(schedule);
     await OfferedCourseClassScheduleUtils.checkFacultyAvailable(schedule);
@@ -49,9 +52,14 @@ const insertIntoDB = async (
   const createSection = await prisma.$transaction(async transactionClient => {
     const createOfferedCourseSection =
       await transactionClient.offeredCourseSection.create({
-        data,
+        data: {
+          title: data.title,
+          maxCapacity: data.maxCapacity,
+          offeredCourseId: data.offeredCourseId,
+          semesterRegistrationId: isExistOfferedCourse.semesterRegistrationId,
+        },
       });
-    const scheduleData = classSchedules.map((schedule: any) => ({
+    const scheduleData = classSchedules.map((schedule: IClassSchedule) => ({
       startTime: schedule.startTime,
       endTime: schedule.endTime,
       dayOfWeek: schedule.dayOfWeek,
