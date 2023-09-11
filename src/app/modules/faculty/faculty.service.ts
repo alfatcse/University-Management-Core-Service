@@ -212,7 +212,34 @@ const myCourses = async (
       },
     },
   });
-  console.log(offeredCourseSections[0]);
+  const courseAndSchedule = offeredCourseSections.reduce(
+    (acc: any, obj: any) => {
+      const course = obj.offeredCourse.course;
+      const classSchedules = obj.offeredCourseClassSchedules;
+      const existingCourse = acc.find(
+        (item: any) => item?.course?.id === course.id
+      );
+      if (existingCourse) {
+        existingCourse.sections.push({
+          section: obj,
+          classSchedules,
+        });
+      } else {
+        acc.push({
+          course,
+          sections: [
+            {
+              section: obj,
+              classSchedules,
+            },
+          ],
+        });
+      }
+      return acc;
+    },
+    []
+  );
+  return courseAndSchedule;
 };
 export const FacultyService = {
   insertIntoDB,
