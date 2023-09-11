@@ -6,6 +6,11 @@ import { FacultyController } from './faculty.controller';
 import { FacultyValidation } from './faculty.validations';
 const router = express.Router();
 router.get('/', FacultyController.getAllFromDB);
+router.get(
+  '/my-course',
+  auth(ENUM_USER_ROLE.FACULTY),
+  FacultyController.myCourses
+);
 router.get('/:id', FacultyController.getByIdFromDB);
 router.post(
   '/',
@@ -35,4 +40,5 @@ router.delete(
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   FacultyController.removeCourses
 );
+
 export const facultyRoutes = router;

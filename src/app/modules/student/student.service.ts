@@ -21,7 +21,6 @@ const insertIntoDB = async (data: Student): Promise<Student> => {
   });
   return result;
 };
-
 const getAllFromDB = async (
   filters: IStudentFilterRequest,
   options: IPaginationOptions
@@ -94,7 +93,6 @@ const getAllFromDB = async (
     data: result,
   };
 };
-
 const getByIdFromDB = async (id: string): Promise<Student | null> => {
   const result = await prisma.student.findUnique({
     where: {
@@ -138,10 +136,39 @@ const deleteFromDB = async (id: string): Promise<Student> => {
   });
   return result;
 };
+const myCourses = async (
+  authUserId: string,
+  filter: {
+    courseId?: string | undefined;
+    academicSemesterId?: string | undefined;
+  }
+) => {
+  if (!filter.academicSemesterId) {
+    const currentSemester = await prisma.academicSemester.findFirst({
+      where: {
+        isCurrent: true,
+      },
+    });
+    filter.academicSemesterId = currentSemester?.id;
+  }
+  const result = await prisma.studentEnrolledCourse.findMany({
+    where: {
+      student: {
+        studentId: authUserId,
+      },
+      ...filter,
+    },
+    include: {
+      course: true,
+    },
+  });
+  return result;
+};
 export const StudentService = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
   updateIntoDB,
   deleteFromDB,
+  myCourses,
 };
