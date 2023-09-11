@@ -5,6 +5,11 @@ import validateRequest from '../../middlewares/validateRequest';
 import { SemesterRegistrationController } from './semesterRegistration.controller';
 import { SemesterRegistrationValidation } from './semesterRegistration.validation';
 const router = express.Router();
+router.get(
+  '/get-my-semester-courses',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.getMySemesterRegCourses
+);
 router.post(
   '/',
   validateRequest(SemesterRegistrationValidation.create),
@@ -23,6 +28,7 @@ router.delete(
   SemesterRegistrationController.removeSemesterRegistration
 );
 router.get('/', SemesterRegistrationController.getAllFromDB);
+
 router.patch(
   '/:id',
   validateRequest(SemesterRegistrationValidation.update),
@@ -56,4 +62,5 @@ router.post(
   auth(ENUM_USER_ROLE.ADMIN),
   SemesterRegistrationController.startNewSemester
 );
+
 export const semesterRegistrationRoutes = router;
