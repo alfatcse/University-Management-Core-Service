@@ -241,6 +241,20 @@ const myCourses = async (
   );
   return courseAndSchedule;
 };
+const getMyStudents = async (
+  authUserId: string,
+  academicSemesterId: string,
+  courseId: string,
+  offeredCourseSectionId: string,
+  options: IPaginationOptions
+) => {
+  const result = await prisma.faculty.findFirst({
+    where: {
+      facultyId: authUserId,
+    },
+  });
+  console.log('au', result);
+};
 export const FacultyService = {
   insertIntoDB,
   getAllFromDB,
@@ -250,4 +264,5 @@ export const FacultyService = {
   assignCourses,
   removeCourses,
   myCourses,
+  getMyStudents,
 };

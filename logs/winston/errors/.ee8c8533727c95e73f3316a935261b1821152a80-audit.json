@@ -219,6 +219,11 @@
             "date": 1694890899899,
             "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-16-09-21-error.log",
             "hash": "ecb7926933da8d9e8e049cdf97f57c6c78a90770b30684298d174ff211824cf2"
+        },
+        {
+            "date": 1694896222771,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-16-09-22-error.log",
+            "hash": "d4da3d4ed690501a131fea60d906520e70677ae9fd93b31be737a077cf6c0529"
         }
     ],
     "hashType": "sha256"

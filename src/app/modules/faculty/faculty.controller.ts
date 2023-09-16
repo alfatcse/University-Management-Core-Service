@@ -91,6 +91,29 @@ const myCourses = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getMyStudents = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  console.log(user);
+  const academicSemesterId: string = req?.query?.academicSemesterId as string;
+  const courseId: string = req?.query?.courseId as string;
+  const offeredCourseSectionId: string = req?.query
+    ?.offeredCourseSectionId as string;
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+  console.log(user.id);
+  const result = await FacultyService.getMyStudents(
+    user.id,
+    academicSemesterId,
+    courseId,
+    offeredCourseSectionId,
+    options
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'My Courses data fetched successfully!',
+    data: result,
+  });
+});
 export const FacultyController = {
   insertIntoDB,
   getAllFromDB,
@@ -100,4 +123,5 @@ export const FacultyController = {
   assignCourses,
   removeCourses,
   myCourses,
+  getMyStudents,
 };
