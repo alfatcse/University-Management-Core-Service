@@ -10,6 +10,21 @@ router.get(
   auth(ENUM_USER_ROLE.STUDENT),
   StudentController.myCourses
 );
+router.get(
+  '/my-courses-schedules',
+  auth(ENUM_USER_ROLE.STUDENT),
+  StudentController.getMyCourseSchedule
+);
+router.get(
+  '/my-academic-info',
+  auth(ENUM_USER_ROLE.STUDENT),
+  StudentController.myAcademicInfo
+);
+router.get(
+  '/my-marks',
+  auth(ENUM_USER_ROLE.STUDENT),
+  StudentController.getStudentMarks
+);
 router.get('/', StudentController.getAllFromDB);
 router.get('/:id', StudentController.getByIdFromDB);
 router.post(
