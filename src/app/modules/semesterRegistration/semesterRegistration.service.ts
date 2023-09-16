@@ -4,6 +4,7 @@ import {
   Prisma,
   SemesterRegistration,
   SemesterRegistrationStatus,
+  StudentEnrolledCourseStatus,
   StudentSemesterRegistration,
   StudentSemesterRegistrationCourse,
 } from '@prisma/client';
@@ -21,6 +22,7 @@ import {
   IEnrollCoursePayload,
   IRegistrationFilterRequest,
 } from './semesterRegistration.interface';
+import { semesterRegistrationUtils } from './semesterRegistration.utils';
 import { studentSemesterRegistrationCourseService } from './studentSemesterRegistrationCourse/studentSemesterRegistrationCourse.service';
 const insertIntoDB = async (
   data: SemesterRegistration
@@ -464,7 +466,6 @@ const getMySemesterRegCourses = async (authUserId: string) => {
       studentId: authUserId,
     },
   });
-  console.log(student);
   const semesterRegistration = await prisma.semesterRegistration.findFirst({
     where: {
       status: {
@@ -484,7 +485,74 @@ const getMySemesterRegCourses = async (authUserId: string) => {
       'No Semester Registration Found'
     );
   }
-  console.log(semesterRegistration);
+
+  const studentCompletedCourse = await prisma.studentEnrolledCourse.findMany({
+    where: {
+      status: StudentEnrolledCourseStatus.COMPLETED,
+      student: {
+        id: student?.id,
+      },
+    },
+    include: {
+      course: true,
+    },
+  });
+  const studentCurrentSemesterTakenCourse =
+    await prisma.studentSemesterRegistrationCourse.findMany({
+      where: {
+        student: {
+          id: student?.id,
+        },
+        semesterRegistration: {
+          id: semesterRegistration?.id,
+        },
+      },
+      include: {
+        offeredCourse: true,
+        offeredCourseSection: true,
+      },
+    });
+  const offeredCourse = await prisma.offeredCourse.findMany({
+    where: {
+      semesterRegistration: {
+        id: semesterRegistration?.id,
+      },
+      academicDepartment: {
+        id: student?.academicDepartmentId,
+      },
+    },
+    include: {
+      course: {
+        include: {
+          preRequisite: {
+            include: {
+              preRequisite: true,
+            },
+          },
+        },
+      },
+      offeredCourseSections: {
+        include: {
+          offeredCourseClassSchedules: {
+            include: {
+              room: {
+                include: {
+                  building: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const availableCourses = semesterRegistrationUtils.getAvailableCourses(
+    offeredCourse,
+    studentCompletedCourse,
+    studentCurrentSemesterTakenCourse
+  );
+  console.log(availableCourses);
 };
 export const semesterRegistrationService = {
   insertIntoDB,
