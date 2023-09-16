@@ -546,13 +546,13 @@ const getMySemesterRegCourses = async (authUserId: string) => {
       },
     },
   });
-
   const availableCourses = semesterRegistrationUtils.getAvailableCourses(
     offeredCourse,
     studentCompletedCourse,
     studentCurrentSemesterTakenCourse
   );
   console.log(availableCourses);
+  return availableCourses;
 };
 export const semesterRegistrationService = {
   insertIntoDB,
