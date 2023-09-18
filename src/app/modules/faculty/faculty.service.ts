@@ -253,7 +253,14 @@ const getMyStudents = async (
       facultyId: authUserId,
     },
   });
-  console.log('au', result);
+  console.log(
+    'au',
+    result,
+    academicSemesterId,
+    courseId,
+    offeredCourseSectionId,
+    options
+  );
 };
 export const FacultyService = {
   insertIntoDB,
