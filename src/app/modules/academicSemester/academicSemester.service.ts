@@ -5,7 +5,7 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { RedisClint } from '../../../shared/redis';
+import { RedisClient } from '../../../shared/redis';
 import {
   AcademicSemesterSearchAbleFields,
   EVENT_ACADEMIC_SEMESTER_CREATED,
@@ -27,7 +27,7 @@ const insertIntoDB = async (
     data: academicSemesterData,
   });
   if (result) {
-    await RedisClint.publish(
+    await RedisClient.publish(
       EVENT_ACADEMIC_SEMESTER_CREATED,
       JSON.stringify(result)
     );
@@ -116,7 +116,7 @@ const updateOneInDB = async (
     data: payload,
   });
   if (result) {
-    await RedisClint.publish(
+    await RedisClient.publish(
       EVENT_ACADEMIC_SEMESTER_UPDATED,
       JSON.stringify(result)
     );
@@ -131,7 +131,7 @@ const deleteByIdFromDB = async (id: string): Promise<AcademicSemester> => {
   });
   if (result) {
     console.log('', result);
-    await RedisClint.publish(
+    await RedisClient.publish(
       EVENT_ACADEMIC_SEMESTER_DELETED,
       JSON.stringify(result)
     );
