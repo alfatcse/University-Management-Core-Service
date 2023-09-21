@@ -6,51 +6,6 @@
     "auditLog": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/.ee8c8533727c95e73f3316a935261b1821152a80-audit.json",
     "files": [
         {
-            "date": 1694026805412,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-06-09-21-error.log",
-            "hash": "db72f11a4b69fcd901605570b990939026b9022de69812d89e836adc4f46ce6f"
-        },
-        {
-            "date": 1694033465871,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-06-09-22-error.log",
-            "hash": "2022a5a8008890d1c19755aab912deccf584d8cefafd024322f4337bc9bed8a4"
-        },
-        {
-            "date": 1694034014501,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-06-09-23-error.log",
-            "hash": "8ce8dd1da4886aff7fe5607b9c3c6c07effb5c416ca462003b5b40899db9098b"
-        },
-        {
-            "date": 1694039913831,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-07-09-00-error.log",
-            "hash": "ac556e6a2fb3c72272ab10d3d370770de0bedeae436aa3980aa4d3c407004791"
-        },
-        {
-            "date": 1694079592253,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-07-09-11-error.log",
-            "hash": "58f4a8d9348f4e5a7371e9935f99e3e648cfbebc29c156f8f58a1b304b26e751"
-        },
-        {
-            "date": 1694080921942,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-07-09-12-error.log",
-            "hash": "f13cd88b5f8d18bac6b8e40e51446aac249e44cf7ecc8480a64c61ab2eb851f1"
-        },
-        {
-            "date": 1694084452049,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-07-09-13-error.log",
-            "hash": "afdb30093866b64d796bf1fb908820a8d8f21eac42fa54e796439fad8242da47"
-        },
-        {
-            "date": 1694103879492,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-07-09-18-error.log",
-            "hash": "22693b4e3ae1e8748a8a7dafa57a4fba6dfa1d7e260abc05cd3729b842baa594"
-        },
-        {
-            "date": 1694119789687,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-07-09-22-error.log",
-            "hash": "73047cd0ffc673025554831f8d90da9666638e6eabae2358a51a9a67bc11b794"
-        },
-        {
             "date": 1694121776731,
             "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-07-09-23-error.log",
             "hash": "1440f013433946b1cfbe2919e814d35e87f776e49e5b2e6946ae3bf8d2f2ae5f"
@@ -249,6 +204,21 @@
             "date": 1695234676527,
             "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-20-09-20-error.log",
             "hash": "5f4f42e949ced37156788f506c900a3b61aac356c0df176822e554369b64eadc"
+        },
+        {
+            "date": 1695244474801,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-20-09-23-error.log",
+            "hash": "65fa7fb27fc8a0a4080602e65d7aafc478e2404cde2d433d3d4c40f29c19c000"
+        },
+        {
+            "date": 1695310164205,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-21-09-17-error.log",
+            "hash": "6a384057886c3ce664f9bfdd2a556d02f0992066b7d93d13ce67865ebbcd6e91"
+        },
+        {
+            "date": 1695329732784,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-21-09-22-error.log",
+            "hash": "3b84e351e04ff599dba0bf46c1f6c3efc4a56ad33a8b0b9c61ad5b748ba0631e"
         }
     ],
     "hashType": "sha256"

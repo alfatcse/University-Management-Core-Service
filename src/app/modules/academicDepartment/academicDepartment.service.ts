@@ -3,13 +3,14 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
+import { RedisClient } from '../../../shared/redis';
 import {
+  EVENT_ACADEMIC_DEPARTMENT_CREATED,
   academicDepartmentRelationalFields,
   academicDepartmentRelationalFieldsMapper,
   academicDepartmentSearchableFields,
 } from './academicDepartment.contants';
 import { IAcademicDepartmentFilterRequest } from './academicDepartment.interface';
-
 const insertIntoDB = async (
   data: AcademicDepartment
 ): Promise<AcademicDepartment> => {
@@ -19,10 +20,14 @@ const insertIntoDB = async (
       academicFaculty: true,
     },
   });
-
+  if (result) {
+    await RedisClient.publish(
+      EVENT_ACADEMIC_DEPARTMENT_CREATED,
+      JSON.stringify(result)
+    );
+  }
   return result;
 };
-
 const getAllFromDB = async (
   filters: IAcademicDepartmentFilterRequest,
   options: IPaginationOptions
@@ -93,7 +98,6 @@ const getAllFromDB = async (
     data: result,
   };
 };
-
 const getByIdFromDB = async (
   id: string
 ): Promise<AcademicDepartment | null> => {
@@ -122,7 +126,6 @@ const updateOneInDB = async (
   });
   return result;
 };
-
 const deleteByIdFromDB = async (id: string): Promise<AcademicDepartment> => {
   const result = await prisma.academicDepartment.delete({
     where: {
@@ -134,6 +137,7 @@ const deleteByIdFromDB = async (id: string): Promise<AcademicDepartment> => {
   });
   return result;
 };
+
 export const AcademicDepartmentService = {
   insertIntoDB,
   getAllFromDB,
