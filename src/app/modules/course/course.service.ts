@@ -14,7 +14,7 @@ import {
 } from './course.interface';
 const insertIntoDb = async (data: ICourseCreateData): Promise<any> => {
   const { preRequisiteCourses, ...courseData } = data;
-  console.log(data);
+
   const newCourse = await prisma.$transaction(async transactionClient => {
     const result = await transactionClient.course.create({
       data: courseData,
@@ -180,9 +180,7 @@ const updateInDB = async (
   id: string,
   payload: ICourseCreateData
 ): Promise<Course | null> => {
-  console.log(payload);
   const { preRequisiteCourses, ...courseData } = payload;
-  console.log(preRequisiteCourses);
   await prisma.$transaction(async transactionClient => {
     const result = await transactionClient.course.update({
       where: { id },

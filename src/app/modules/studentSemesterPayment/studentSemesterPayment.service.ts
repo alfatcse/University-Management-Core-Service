@@ -15,7 +15,6 @@ const createSemesterPayment = async (
     totalPaymentAmount: number;
   }
 ) => {
-  console.log(payload);
   const isExist = await prisma.studentSemesterPayment.findFirst({
     where: {
       student: {

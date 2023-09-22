@@ -1,5 +1,0 @@
-Fri Sep 08 2023 1:46:37 [PH] error: 
-Invalid `prisma.studentEnrolledCourseMark.create()` invocation:
-
-
-Transaction API error: Transaction already closed: A query cannot be executed on a committed transaction.

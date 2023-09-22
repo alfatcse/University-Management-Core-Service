@@ -6,7 +6,6 @@ const getAvailableCourses = (
   const completedCoursesId = studentCompletedCourses.map(
     (course: any) => course.id
   );
-  console.log('com', completedCoursesId);
   const availableCoursesList = offeredCourses
     .filter(
       (offeredCourse: any) =>
@@ -20,7 +19,6 @@ const getAvailableCourses = (
         const preRequisitesIds = preRequisites.map(
           (preRequisite: any) => preRequisite.preRequisiteId
         );
-        console.log(preRequisitesIds);
         return preRequisitesIds.every((id: string) =>
           completedCoursesId.includes(id)
         );
@@ -52,7 +50,6 @@ const getAvailableCourses = (
         };
       }
     });
-  console.log('av', availableCoursesList);
   return availableCoursesList;
 };
 export const semesterRegistrationUtils = {

@@ -130,7 +130,6 @@ const deleteByIdFromDB = async (id: string): Promise<AcademicSemester> => {
     },
   });
   if (result) {
-    console.log('', result);
     await RedisClient.publish(
       EVENT_ACADEMIC_SEMESTER_DELETED,
       JSON.stringify(result)
