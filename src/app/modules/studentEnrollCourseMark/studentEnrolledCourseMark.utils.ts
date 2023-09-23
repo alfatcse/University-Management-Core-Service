@@ -26,7 +26,6 @@ const getGradeFromMarks = (marks: number) => {
 const calcCGPAandGrade = (
   payload: (StudentEnrolledCourse & { course: Course })[]
 ) => {
-  console.log(payload);
   if (payload.length === 0) {
     return {
       totalCompletedCredit: 0,
@@ -40,7 +39,7 @@ const calcCGPAandGrade = (
     totalCredit += grade.course.credits || 0;
   }
   const avgCGPA = Number((totalCGPA / payload.length).toFixed(2));
-  console.log(totalCredit, totalCGPA, avgCGPA);
+
   return {
     totalCompletedCredit: totalCredit,
     cgpa: avgCGPA,

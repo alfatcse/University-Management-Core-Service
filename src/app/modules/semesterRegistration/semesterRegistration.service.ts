@@ -125,7 +125,6 @@ const updateOneDB = async (
   id: string,
   payload: Partial<SemesterRegistration>
 ): Promise<SemesterRegistration> => {
-  console.log(payload.status);
   const isExist = await prisma.semesterRegistration.findUnique({
     where: {
       id,
@@ -205,9 +204,7 @@ const startMyRegistration = async (
       },
     },
   });
-  console.log(studentRegistration);
   if (!studentRegistration) {
-    console.log('not');
     studentRegistration = await prisma.studentSemesterRegistration.create({
       data: {
         student: {
@@ -223,7 +220,6 @@ const startMyRegistration = async (
       },
     });
   }
-  console.log(studentInfo, semesterRegistrationInfo, studentRegistration);
   return {
     semesterRegistration: semesterRegistrationInfo,
     studentSemesterRegistration: studentRegistration,
@@ -254,7 +250,6 @@ const withdrewFromCourse = async (
 const confirmMyRegistration = async (
   authUserId: string
 ): Promise<{ message: string }> => {
-  console.log(authUserId);
   const semesterRegistration = await prisma.semesterRegistration.findFirst({
     where: {
       status: SemesterRegistrationStatus.ONGOING,
@@ -338,7 +333,6 @@ const startNewSemester = async (
 ): Promise<{
   message: string;
 }> => {
-  console.log(id);
   const semesterRegistration = await prisma.semesterRegistration.findUnique({
     where: {
       id,
@@ -551,7 +545,6 @@ const getMySemesterRegCourses = async (authUserId: string) => {
     studentCompletedCourse,
     studentCurrentSemesterTakenCourse
   );
-  console.log(availableCourses);
   return availableCourses;
 };
 export const semesterRegistrationService = {

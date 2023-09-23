@@ -95,7 +95,6 @@ const myAcademicInfo = catchAsync(async (req: Request, res: Response) => {
 });
 const getStudentMarks = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
-  console.log(user);
   const academicSemesterId: string = req?.query?.academicSemesterId as string;
   const courseId: string = req?.query?.courseId as string;
   const result = await StudentService.getStudentMarks(

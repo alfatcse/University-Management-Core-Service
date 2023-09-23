@@ -140,7 +140,6 @@ const updateOneInDB = async (
     },
     data: payload,
   });
-  console.log(result);
   return result;
 };
 export const offeredCourseService = {

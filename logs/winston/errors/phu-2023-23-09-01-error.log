@@ -1,0 +1,25 @@
+Sat Sep 23 2023 1:43:36 [PH] error: 
+Invalid `prisma.faculty.create()` invocation:
+
+{
+  data: {
+    facultyId: "F-00001",
+    firstName: "Alfat ",
+    lastName: "Jahan",
+    middleName: "Rony",
+    email: "alfat@gmail.com",
+    contactNo: "014580056",
+    gender: "male",
+    bloodGroup: "O+",
+    designation: "Lecturer",
+    academicDepartmentId: "ecbf9a21-10f4-4d3e-974a-208481049fce",
+    academicFacultyId: "c2146305-bdeb-44e5-b2bd-9f22c87f3b93",
++   profileImage: String
+  },
+  include: {
+    academicFaculty: true,
+    academicDepartment: true
+  }
+}
+
+Argument `profileImage` is missing.
