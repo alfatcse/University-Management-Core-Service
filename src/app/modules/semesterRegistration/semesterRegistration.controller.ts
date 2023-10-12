@@ -43,11 +43,13 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     filters,
     options
   );
+  console.log(result);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Semester Registration Fetched Successfully',
-    data: result,
+    data: result?.data,
+    meta: result?.meta,
   });
 });
 const updateOneDB = catchAsync(async (req: Request, res: Response) => {
