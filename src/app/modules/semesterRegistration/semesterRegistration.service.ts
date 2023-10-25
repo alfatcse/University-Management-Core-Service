@@ -14,7 +14,7 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { asyForEach } from '../../../shared/utils';
+import { asyncForEach } from '../../../shared/utils';
 import { studentEnrolledCourseMarkService } from '../studentEnrollCourseMark/studentEnrolledCourseMark.service';
 import { StudentSemesterPaymentService } from '../studentSemesterPayment/studentSemesterPayment.service';
 import { RegistrationSearchableFields } from './semesterRegistration.constants';
@@ -381,7 +381,7 @@ const startNewSemester = async (
           isConfirmed: true,
         },
       });
-    asyForEach(
+    asyncForEach(
       studentSemesterRegistrations,
       async (studentSemReg: StudentSemesterRegistration) => {
         if (studentSemReg.totalCreditsTaken) {
@@ -411,7 +411,7 @@ const startNewSemester = async (
               },
             },
           });
-        asyForEach(
+        asyncForEach(
           studentSemesterRegistrationCourses,
           async (
             item: StudentSemesterRegistrationCourse & {

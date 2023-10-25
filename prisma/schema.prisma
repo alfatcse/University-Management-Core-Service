@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,10 +14,10 @@ model AcademicSemester {
   id                         String                      @id @default(uuid())
   year                       Int
   title                      String
-  isCurrent                  Boolean?                    @default(false)
   code                       String
   startMonth                 String
   endMonth                   String
+  isCurrent                  Boolean?                    @default(false)
   createdAt                  DateTime                    @default(now())
   updatedAt                  DateTime                    @updatedAt
   students                   Student[]
@@ -91,7 +94,7 @@ model Faculty {
   firstName    String
   lastName     String
   middleName   String
-  profileImage String?
+  profileImage String
   email        String
   contactNo    String
   gender       String
@@ -201,10 +204,10 @@ model OfferedCourse {
   academicDepartmentId String
   academicDepartment   AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
 
-  semesterRegistrationId            String
-  semesterRegistration              SemesterRegistration                @relation(fields: [semesterRegistrationId], references: [id])
-  offeredCourseSections             OfferedCourseSection[]
-  StudentSemesterRegistrationCourse StudentSemesterRegistrationCourse[]
+  semesterRegistrationId             String
+  semesterRegistration               SemesterRegistration                @relation(fields: [semesterRegistrationId], references: [id])
+  offeredCourseSections              OfferedCourseSection[]
+  studentSemesterRegistrationCourses StudentSemesterRegistrationCourse[]
 
   @@map("offered_courses")
 }
@@ -227,12 +230,6 @@ model OfferedCourseSection {
   @@map("offered_course_sections")
 }
 
-enum SemesterRegistrationStatus {
-  UPCOMING
-  ONGOING
-  ENDED
-}
-
 model OfferedCourseClassSchedule {
   id                     String               @id @default(uuid())
   startTime              String
@@ -241,25 +238,18 @@ model OfferedCourseClassSchedule {
   createdAt              DateTime             @default(now())
   updatedAt              DateTime             @updatedAt
   offeredCourseSectionId String
-  semesterRegistrationId String
-  roomId                 String
-  facultyId              String
   offeredCourseSection   OfferedCourseSection @relation(fields: [offeredCourseSectionId], references: [id])
+
+  semesterRegistrationId String
   semesterRegistration   SemesterRegistration @relation(fields: [semesterRegistrationId], references: [id])
-  room                   Room                 @relation(fields: [roomId], references: [id])
-  faculty                Faculty              @relation(fields: [facultyId], references: [id])
+
+  roomId String
+  room   Room   @relation(fields: [roomId], references: [id])
+
+  facultyId String
+  faculty   Faculty @relation(fields: [facultyId], references: [id])
 
   @@map("offered_course_class_schedules")
-}
-
-enum WeekDays {
-  SUNDAY
-  MONDAY
-  TUESDAY
-  WEDNESDAY
-  THURSDAY
-  FRIDAY
-  SATURDAY
 }
 
 model StudentSemesterRegistration {
@@ -273,7 +263,7 @@ model StudentSemesterRegistration {
   semesterRegistrationId String
   semesterRegistration   SemesterRegistration @relation(fields: [semesterRegistrationId], references: [id])
 
-  @@map("student_semester_registration")
+  @@map("student_semester_registrations")
 }
 
 model StudentSemesterRegistrationCourse {
@@ -293,28 +283,22 @@ model StudentSemesterRegistrationCourse {
 }
 
 model StudentEnrolledCourse {
-  id                         String                      @id @default(uuid())
-  createdAt                  DateTime                    @default(now())
-  updatedAt                  DateTime                    @updatedAt
+  id                         String                       @id @default(uuid())
+  createdAt                  DateTime                     @default(now())
+  updatedAt                  DateTime                     @updatedAt
   studentId                  String
-  student                    Student                     @relation(fields: [studentId], references: [id])
+  student                    Student                      @relation(fields: [studentId], references: [id])
   courseId                   String
-  course                     Course                      @relation(fields: [courseId], references: [id])
+  course                     Course                       @relation(fields: [courseId], references: [id])
   academicSemesterId         String
-  academicSemester           AcademicSemester            @relation(fields: [academicSemesterId], references: [id])
+  academicSemester           AcademicSemester             @relation(fields: [academicSemesterId], references: [id])
   grade                      String?
-  point                      Float                       @default(0)
-  totalMarks                 Int?                        @default(0)
-  status                     StudentEnrolledCourseStatus @default(ONGOING)
+  point                      Float?                       @default(0)
+  totalMarks                 Int?                         @default(0)
+  status                     StudentEnrolledCourseStatus? @default(ONGOING)
   studentEnrolledCourseMarks StudentEnrolledCourseMark[]
 
   @@map("student_enrolled_courses")
-}
-
-enum StudentEnrolledCourseStatus {
-  ONGOING
-  COMPLETED
-  WITHDRAWN
 }
 
 model StudentEnrolledCourseMark {
@@ -334,32 +318,39 @@ model StudentEnrolledCourseMark {
   @@map("student_enrolled_course_marks")
 }
 
-enum ExamType {
-  MIDTERM
-  FINAL
-}
-
 model StudentSemesterPayment {
-  id                   String           @id @default(uuid())
-  createdAt            DateTime         @default(now())
-  updatedAt            DateTime         @updatedAt
-  studentId            String
-  student              Student          @relation(fields: [studentId], references: [id])
-  academicSemesterId   String
-  academicSemester     AcademicSemester @relation(fields: [academicSemesterId], references: [id])
-  fullPaymentAmount    Int?             @default(0)
-  partialPaymentAmount Int?             @default(0)
-  totalPaidAmount      Int?             @default(0)
-  paymentStatus        PaymentStatus?   @default(PENDING)
-  totalDueAmount       Int?             @default(0)
+  id                 String           @id @default(uuid())
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  studentId          String
+  student            Student          @relation(fields: [studentId], references: [id])
+  academicSemesterId String
+  academicSemester   AcademicSemester @relation(fields: [academicSemesterId], references: [id])
 
-  @@map("student_semester_payment")
+  fullPaymentAmount             Int?                            @default(0)
+  partialPaymentAmount          Int?                            @default(0)
+  totalDueAmount                Int?                            @default(0)
+  totalPaidAmount               Int?                            @default(0)
+  paymentStatus                 PaymentStatus?                  @default(PENDING)
+  studentSemesterPaymentHistory StudentSemesterPaymentHistory[]
+
+  @@map("student_semester_payments")
 }
 
-enum PaymentStatus {
-  PENDING
-  PARTIAL_PAID
-  FULL_PAID
+model StudentSemesterPaymentHistory {
+  id                       String                 @id @default(uuid())
+  createdAt                DateTime               @default(now())
+  updatedAt                DateTime               @updatedAt
+  studentSemesterPayment   StudentSemesterPayment @relation(fields: [studentSemesterPaymentId], references: [id])
+  studentSemesterPaymentId String
+
+  transactionId String
+  dueAmount     Int            @default(0)
+  paidAmount    Int            @default(0)
+  paymentMethod PayementMethod @default(ONLINE)
+  isPaid        Boolean?       @default(false)
+
+  @@map("student_semester_payament_histories")
 }
 
 model StudentAcademicInfo {
@@ -372,4 +363,42 @@ model StudentAcademicInfo {
   cgpa                 Float?   @default(0)
 
   @@map("student_academic_infos")
+}
+
+enum SemesterRegistrationStatus {
+  UPCOMING
+  ONGOING
+  ENDED
+}
+
+enum WeekDays {
+  SATURDAY
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+}
+
+enum StudentEnrolledCourseStatus {
+  ONGOING
+  COMPLETED
+  WITHDRAWN
+}
+
+enum ExamType {
+  MIDTERM
+  FINAL
+}
+
+enum PaymentStatus {
+  PENDING
+  PARTIAL_PAID
+  FULL_PAID
+}
+
+enum PayementMethod {
+  CASH
+  ONLINE
 }

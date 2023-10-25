@@ -2,7 +2,7 @@
 CREATE TYPE "SemesterRegistrationStatus" AS ENUM ('UPCOMING', 'ONGOING', 'ENDED');
 
 -- CreateEnum
-CREATE TYPE "WeekDays" AS ENUM ('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY');
+CREATE TYPE "WeekDays" AS ENUM ('SATURDAY', 'SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY');
 
 -- CreateEnum
 CREATE TYPE "StudentEnrolledCourseStatus" AS ENUM ('ONGOING', 'COMPLETED', 'WITHDRAWN');
@@ -13,15 +13,18 @@ CREATE TYPE "ExamType" AS ENUM ('MIDTERM', 'FINAL');
 -- CreateEnum
 CREATE TYPE "PaymentStatus" AS ENUM ('PENDING', 'PARTIAL_PAID', 'FULL_PAID');
 
+-- CreateEnum
+CREATE TYPE "PayementMethod" AS ENUM ('CASH', 'ONLINE');
+
 -- CreateTable
 CREATE TABLE "academic_semesters" (
     "id" TEXT NOT NULL,
     "year" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
-    "isCurrent" BOOLEAN DEFAULT false,
     "code" TEXT NOT NULL,
     "startMonth" TEXT NOT NULL,
     "endMonth" TEXT NOT NULL,
+    "isCurrent" BOOLEAN DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -199,7 +202,7 @@ CREATE TABLE "offered_course_class_schedules" (
 );
 
 -- CreateTable
-CREATE TABLE "student_semester_registration" (
+CREATE TABLE "student_semester_registrations" (
     "id" TEXT NOT NULL,
     "isConfirmed" BOOLEAN DEFAULT false,
     "totalCreditsTaken" INTEGER DEFAULT 0,
@@ -208,7 +211,7 @@ CREATE TABLE "student_semester_registration" (
     "studentId" TEXT NOT NULL,
     "semesterRegistrationId" TEXT NOT NULL,
 
-    CONSTRAINT "student_semester_registration_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "student_semester_registrations_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -232,9 +235,9 @@ CREATE TABLE "student_enrolled_courses" (
     "courseId" TEXT NOT NULL,
     "academicSemesterId" TEXT NOT NULL,
     "grade" TEXT,
-    "point" DOUBLE PRECISION NOT NULL DEFAULT 0,
+    "point" DOUBLE PRECISION DEFAULT 0,
     "totalMarks" INTEGER DEFAULT 0,
-    "status" "StudentEnrolledCourseStatus" NOT NULL DEFAULT 'ONGOING',
+    "status" "StudentEnrolledCourseStatus" DEFAULT 'ONGOING',
 
     CONSTRAINT "student_enrolled_courses_pkey" PRIMARY KEY ("id")
 );
@@ -255,7 +258,7 @@ CREATE TABLE "student_enrolled_course_marks" (
 );
 
 -- CreateTable
-CREATE TABLE "student_semester_payment" (
+CREATE TABLE "student_semester_payments" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -263,11 +266,26 @@ CREATE TABLE "student_semester_payment" (
     "academicSemesterId" TEXT NOT NULL,
     "fullPaymentAmount" INTEGER DEFAULT 0,
     "partialPaymentAmount" INTEGER DEFAULT 0,
+    "totalDueAmount" INTEGER DEFAULT 0,
     "totalPaidAmount" INTEGER DEFAULT 0,
     "paymentStatus" "PaymentStatus" DEFAULT 'PENDING',
-    "totalDueAmount" INTEGER DEFAULT 0,
 
-    CONSTRAINT "student_semester_payment_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "student_semester_payments_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "student_semester_payament_histories" (
+    "id" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "studentSemesterPaymentId" TEXT NOT NULL,
+    "transactionId" TEXT NOT NULL,
+    "dueAmount" INTEGER NOT NULL DEFAULT 0,
+    "paidAmount" INTEGER NOT NULL DEFAULT 0,
+    "paymentMethod" "PayementMethod" NOT NULL DEFAULT 'ONLINE',
+    "isPaid" BOOLEAN DEFAULT false,
+
+    CONSTRAINT "student_semester_payament_histories_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -346,10 +364,10 @@ ALTER TABLE "offered_course_class_schedules" ADD CONSTRAINT "offered_course_clas
 ALTER TABLE "offered_course_class_schedules" ADD CONSTRAINT "offered_course_class_schedules_facultyId_fkey" FOREIGN KEY ("facultyId") REFERENCES "faculties"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "student_semester_registration" ADD CONSTRAINT "student_semester_registration_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "students"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "student_semester_registrations" ADD CONSTRAINT "student_semester_registrations_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "students"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "student_semester_registration" ADD CONSTRAINT "student_semester_registration_semesterRegistrationId_fkey" FOREIGN KEY ("semesterRegistrationId") REFERENCES "semester_registrations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "student_semester_registrations" ADD CONSTRAINT "student_semester_registrations_semesterRegistrationId_fkey" FOREIGN KEY ("semesterRegistrationId") REFERENCES "semester_registrations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "student_semester_registration_courses" ADD CONSTRAINT "student_semester_registration_courses_semesterRegistration_fkey" FOREIGN KEY ("semesterRegistrationId") REFERENCES "semester_registrations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -382,10 +400,13 @@ ALTER TABLE "student_enrolled_course_marks" ADD CONSTRAINT "student_enrolled_cou
 ALTER TABLE "student_enrolled_course_marks" ADD CONSTRAINT "student_enrolled_course_marks_academicSemesterId_fkey" FOREIGN KEY ("academicSemesterId") REFERENCES "academic_semesters"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "student_semester_payment" ADD CONSTRAINT "student_semester_payment_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "students"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "student_semester_payments" ADD CONSTRAINT "student_semester_payments_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "students"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "student_semester_payment" ADD CONSTRAINT "student_semester_payment_academicSemesterId_fkey" FOREIGN KEY ("academicSemesterId") REFERENCES "academic_semesters"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "student_semester_payments" ADD CONSTRAINT "student_semester_payments_academicSemesterId_fkey" FOREIGN KEY ("academicSemesterId") REFERENCES "academic_semesters"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "student_semester_payament_histories" ADD CONSTRAINT "student_semester_payament_histories_studentSemesterPayment_fkey" FOREIGN KEY ("studentSemesterPaymentId") REFERENCES "student_semester_payments"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "student_academic_infos" ADD CONSTRAINT "student_academic_infos_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "students"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

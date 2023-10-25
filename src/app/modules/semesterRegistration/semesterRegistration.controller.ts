@@ -6,6 +6,7 @@ import sendResponse from '../../../shared/sendResponse';
 import { RegistrationFilterableFields } from './semesterRegistration.constants';
 import { semesterRegistrationService } from './semesterRegistration.service';
 const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.body);
   const result = await semesterRegistrationService.insertIntoDB(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -43,7 +44,7 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     filters,
     options
   );
-  console.log(result);
+
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

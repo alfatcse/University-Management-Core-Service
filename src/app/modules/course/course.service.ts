@@ -5,7 +5,8 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { asyForEach } from '../../../shared/utils';
+
+import { asyncForEach } from '../../../shared/utils';
 import { courseSearchableFields } from './course.constants';
 import {
   ICourseCreateData,
@@ -23,6 +24,7 @@ const insertIntoDb = async (data: ICourseCreateData): Promise<any> => {
       throw new ApiError(httpStatus.BAD_REQUEST, 'Unable to create course');
     }
     if (preRequisiteCourses && preRequisiteCourses.length > 0) {
+      console.log('preee', preRequisiteCourses);
       // for (let index = 0; index < preRequisiteCourses.length; index++) {
       //   await transactionClient.courseToPrerequisite.create({
       //     data: {
@@ -31,7 +33,7 @@ const insertIntoDb = async (data: ICourseCreateData): Promise<any> => {
       //     },
       //   });
       // }
-      await asyForEach(
+      await asyncForEach(
         preRequisiteCourses,
         async (preRequisiteCourse: IPrerequisiteCourseRequest) => {
           await transactionClient.courseToPrerequisite.create({
@@ -222,7 +224,7 @@ const updateInDB = async (
       //     },
       //   });
       // }
-      await asyForEach(
+      await asyncForEach(
         deletePrerequisite,
         async (deletePreCourse: IPrerequisiteCourseRequest) => {
           await transactionClient.courseToPrerequisite.deleteMany({
@@ -245,7 +247,7 @@ const updateInDB = async (
       //     },
       //   });
       // }
-      await asyForEach(
+      await asyncForEach(
         newPrerequisite,
         async (insertPre: IPrerequisiteCourseRequest) => {
           await transactionClient.courseToPrerequisite.create({
