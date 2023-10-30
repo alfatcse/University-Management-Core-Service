@@ -245,11 +245,8 @@ const myCourses = async (
 
   const couseAndSchedule = offeredCourseSections.reduce(
     (acc: any, obj: any) => {
-      //console.log(obj)
-
       const course = obj.offeredCourse.course;
       const classSchedules = obj.offeredCourseClassSchedules;
-
       const existingCourse = acc.find(
         (item: any) => item.couse?.id === course?.id
       );
@@ -278,11 +275,9 @@ const myCourses = async (
 
 const getMyCourseStudents = async (
   filters: IFacultyMyCourseStudentsRequest,
-  options: IPaginationOptions,
-  authUser: any
+  options: IPaginationOptions
 ): Promise<IGenericResponse<Student[]>> => {
   const { limit, page, skip } = paginationHelpers.calculatePagination(options);
-  console.log(authUser);
   if (!filters.academicSemesterId) {
     const currentAcademicSemester = await prisma.academicSemester.findFirst({
       where: {
@@ -373,8 +368,7 @@ const createFacultyFromEvent = async (
     academicFacultyId: e.academicFaculty.syncId,
   };
 
-  const data = await insertIntoDB(faculty as Faculty);
-  console.log('RES: ', data);
+  await insertIntoDB(faculty as Faculty);
 };
 
 const updateFacultyFromEvent = async (e: any): Promise<void> => {
@@ -401,13 +395,12 @@ const updateFacultyFromEvent = async (e: any): Promise<void> => {
       academicFacultyId: e.academicFaculty.syncId,
     };
 
-    const res = await prisma.faculty.updateMany({
+    await prisma.faculty.updateMany({
       where: {
         facultyId: e.id,
       },
       data: facultyData,
     });
-    console.log(res);
   }
 };
 

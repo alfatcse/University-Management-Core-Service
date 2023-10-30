@@ -24,15 +24,6 @@ const insertIntoDb = async (data: ICourseCreateData): Promise<any> => {
       throw new ApiError(httpStatus.BAD_REQUEST, 'Unable to create course');
     }
     if (preRequisiteCourses && preRequisiteCourses.length > 0) {
-      console.log('preee', preRequisiteCourses);
-      // for (let index = 0; index < preRequisiteCourses.length; index++) {
-      //   await transactionClient.courseToPrerequisite.create({
-      //     data: {
-      //       courseId: result.id,
-      //       preRequisiteId: preRequisiteCourses[index].courseId,
-      //     },
-      //   });
-      // }
       await asyncForEach(
         preRequisiteCourses,
         async (preRequisiteCourse: IPrerequisiteCourseRequest) => {

@@ -81,7 +81,6 @@ const myCourses = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
   const filter = pick(req.query, ['academicSemesterId', 'courseId']);
   const result = await FacultyService.myCourses(user, filter);
-  console.log(result);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -90,18 +89,14 @@ const myCourses = catchAsync(async (req: Request, res: Response) => {
   });
 });
 const getMyStudents = catchAsync(async (req: Request, res: Response) => {
-  const user = (req as any).user;
+  //const user = (req as any).user;
   const filters = pick(req.query, [
     'academicSemesterId',
     'courseId',
     'offeredCourseSectionId',
   ]);
   const options = pick(req.query, ['limit', 'page']);
-  const result = await FacultyService.getMyCourseStudents(
-    filters,
-    options,
-    user
-  );
+  const result = await FacultyService.getMyCourseStudents(filters, options);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

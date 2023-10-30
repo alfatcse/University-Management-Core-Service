@@ -162,7 +162,7 @@ const myCourses = async (
       course: true,
     },
   });
-  console.log(result);
+
   return result;
 };
 const getMyCourseSchedule = async (
