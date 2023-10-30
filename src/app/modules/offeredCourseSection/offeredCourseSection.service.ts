@@ -5,7 +5,7 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { asyForEach } from '../../../shared/utils';
+import { asyncForEach } from '../../../shared/utils';
 import { OfferedCourseClassScheduleUtils } from '../offeredCourseClassSchedule/offeredCourseClassSchedule.utils';
 import {
   offeredCourseSectionRelationalFields,
@@ -34,7 +34,7 @@ const insertIntoDB = async (
       'Offered Course Does not exist!'
     );
   }
-  await asyForEach(classSchedules, async (schedule: any) => {
+  await asyncForEach(classSchedules, async (schedule: any) => {
     await OfferedCourseClassScheduleUtils.checkRoomAvailable(schedule);
     await OfferedCourseClassScheduleUtils.checkFacultyAvailable(schedule);
   });

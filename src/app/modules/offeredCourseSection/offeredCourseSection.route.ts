@@ -10,4 +10,5 @@ router.post(
 );
 router.get('/:id', OfferedCourseSectionController.getByIdFromDB);
 router.get('/', OfferedCourseSectionController.getAllFromDB);
+router.delete('/:id', OfferedCourseSectionController.deleteByIdFromDB);
 export const offeredCourseSectionRoutes = router;

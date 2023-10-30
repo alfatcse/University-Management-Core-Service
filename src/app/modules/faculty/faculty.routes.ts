@@ -7,7 +7,7 @@ import { FacultyValidation } from './faculty.validations';
 const router = express.Router();
 router.get('/', FacultyController.getAllFromDB);
 router.get(
-  '/my-course',
+  '/my-courses',
   auth(ENUM_USER_ROLE.FACULTY),
   FacultyController.myCourses
 );

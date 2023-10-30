@@ -6,6 +6,8 @@ import prisma from '../../../shared/prisma';
 import { RedisClient } from '../../../shared/redis';
 import {
   EVENT_ACADEMIC_DEPARTMENT_CREATED,
+  EVENT_ACADEMIC_DEPARTMENT_DELETED,
+  EVENT_ACADEMIC_DEPARTMENT_UPDATED,
   academicDepartmentRelationalFields,
   academicDepartmentRelationalFieldsMapper,
   academicDepartmentSearchableFields,
@@ -124,6 +126,12 @@ const updateOneInDB = async (
       academicFaculty: true,
     },
   });
+  if (result) {
+    await RedisClient.publish(
+      EVENT_ACADEMIC_DEPARTMENT_UPDATED,
+      JSON.stringify(result)
+    );
+  }
   return result;
 };
 const deleteByIdFromDB = async (id: string): Promise<AcademicDepartment> => {
@@ -135,6 +143,12 @@ const deleteByIdFromDB = async (id: string): Promise<AcademicDepartment> => {
       academicFaculty: true,
     },
   });
+  if (result) {
+    await RedisClient.publish(
+      EVENT_ACADEMIC_DEPARTMENT_DELETED,
+      JSON.stringify(result)
+    );
+  }
   return result;
 };
 

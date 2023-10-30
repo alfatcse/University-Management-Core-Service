@@ -3,7 +3,7 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { asyForEach } from '../../../shared/utils';
+import { asyncForEach } from '../../../shared/utils';
 import {
   offeredCourseRelationalFields,
   offeredCourseRelationalFieldsMapper,
@@ -18,7 +18,7 @@ const insertIntoDB = async (
 ): Promise<OfferedCourse[]> => {
   const { academicDepartmentId, semesterRegistrationId, courseIds } = data;
   const result: OfferedCourse[] = [];
-  await asyForEach(courseIds, async (courseId: string) => {
+  await asyncForEach(courseIds, async (courseId: string) => {
     const alreadyExist = await prisma.offeredCourse.findFirst({
       where: {
         academicDepartmentId,

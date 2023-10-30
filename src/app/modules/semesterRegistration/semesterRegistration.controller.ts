@@ -6,6 +6,7 @@ import sendResponse from '../../../shared/sendResponse';
 import { RegistrationFilterableFields } from './semesterRegistration.constants';
 import { semesterRegistrationService } from './semesterRegistration.service';
 const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.body);
   const result = await semesterRegistrationService.insertIntoDB(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -43,11 +44,13 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     filters,
     options
   );
+
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Semester Registration Fetched Successfully',
-    data: result,
+    data: result?.data,
+    meta: result?.meta,
   });
 });
 const updateOneDB = catchAsync(async (req: Request, res: Response) => {

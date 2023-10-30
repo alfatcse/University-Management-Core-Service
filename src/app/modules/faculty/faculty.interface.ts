@@ -8,6 +8,13 @@ export type IFacultyFilterRequest = {
   gender?: string | undefined;
   bloodGroup?: string | undefined;
 };
+
+export type IFacultyMyCourseStudentsRequest = {
+  academicSemesterId?: string | undefined;
+  courseId?: string | undefined;
+  offeredCourseSectionId?: string | undefined;
+};
+
 export type FacultyCreatedEvent = {
   id: string;
   name: {

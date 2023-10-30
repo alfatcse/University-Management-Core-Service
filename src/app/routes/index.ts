@@ -47,7 +47,7 @@ const moduleRoutes = [
     route: CourseRoute,
   },
   {
-    path: '/semester-registration',
+    path: '/semester-registrations',
     route: semesterRegistrationRoutes,
   },
   {
@@ -55,7 +55,7 @@ const moduleRoutes = [
     route: offeredCourseRoutes,
   },
   {
-    path: '/offered-course-section',
+    path: '/offered-course-sections',
     route: offeredCourseSectionRoutes,
   },
   {
