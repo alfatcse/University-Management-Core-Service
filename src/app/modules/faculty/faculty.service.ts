@@ -1,4 +1,4 @@
-import { CourseFaculty, Faculty, Prisma } from '@prisma/client';
+import { CourseFaculty, Faculty, Prisma, Student } from '@prisma/client';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
@@ -11,7 +11,9 @@ import {
 import {
   FacultyCreatedEvent,
   IFacultyFilterRequest,
+  IFacultyMyCourseStudentsRequest,
 } from './faculty.interface';
+
 const insertIntoDB = async (data: Faculty): Promise<Faculty> => {
   const result = await prisma.faculty.create({
     data,
@@ -22,6 +24,7 @@ const insertIntoDB = async (data: Faculty): Promise<Faculty> => {
   });
   return result;
 };
+
 const getAllFromDB = async (
   filters: IFacultyFilterRequest,
   options: IPaginationOptions
@@ -93,10 +96,11 @@ const getAllFromDB = async (
     data: result,
   };
 };
+
 const getByIdFromDB = async (id: string): Promise<Faculty | null> => {
-  const result = await prisma.faculty.findUnique({
+  const result = await prisma.faculty.findFirst({
     where: {
-      id,
+      facultyId: id,
     },
     include: {
       academicFaculty: true,
@@ -105,6 +109,7 @@ const getByIdFromDB = async (id: string): Promise<Faculty | null> => {
   });
   return result;
 };
+
 const updateOneInDB = async (
   id: string,
   payload: Partial<Faculty>
@@ -121,6 +126,7 @@ const updateOneInDB = async (
   });
   return result;
 };
+
 const deleteByIdFromDB = async (id: string): Promise<Faculty> => {
   const result = await prisma.faculty.delete({
     where: {
@@ -133,6 +139,7 @@ const deleteByIdFromDB = async (id: string): Promise<Faculty> => {
   });
   return result;
 };
+
 const assignCourses = async (
   id: string,
   payload: string[]
@@ -143,31 +150,49 @@ const assignCourses = async (
       courseId: courseId,
     })),
   });
+
   const assignCoursesData = await prisma.courseFaculty.findMany({
-    where: { facultyId: id },
+    where: {
+      facultyId: id,
+    },
     include: {
       course: true,
     },
   });
+
   return assignCoursesData;
 };
+
 const removeCourses = async (
   id: string,
   payload: string[]
 ): Promise<CourseFaculty[] | null> => {
   await prisma.courseFaculty.deleteMany({
-    where: { facultyId: id, courseId: { in: payload } },
+    where: {
+      facultyId: id,
+      courseId: {
+        in: payload,
+      },
+    },
   });
+
   const assignCoursesData = await prisma.courseFaculty.findMany({
-    where: { facultyId: id },
+    where: {
+      facultyId: id,
+    },
     include: {
       course: true,
     },
   });
+
   return assignCoursesData;
 };
+
 const myCourses = async (
-  authUser: { userId: string; role: string },
+  authUser: {
+    userId: string;
+    role: string;
+  },
   filter: {
     academicSemesterId?: string | null | undefined;
     courseId?: string | null | undefined;
@@ -179,8 +204,10 @@ const myCourses = async (
         isCurrent: true,
       },
     });
+
     filter.academicSemesterId = currentSemester?.id;
   }
+
   const offeredCourseSections = await prisma.offeredCourseSection.findMany({
     where: {
       offeredCourseClassSchedules: {
@@ -215,12 +242,16 @@ const myCourses = async (
       },
     },
   });
-  const courseAndSchedule = offeredCourseSections.reduce(
+
+  const couseAndSchedule = offeredCourseSections.reduce(
     (acc: any, obj: any) => {
+      //console.log(obj)
+
       const course = obj.offeredCourse.course;
       const classSchedules = obj.offeredCourseClassSchedules;
+
       const existingCourse = acc.find(
-        (item: any) => item?.course?.id === course.id
+        (item: any) => item.couse?.id === course?.id
       );
       if (existingCourse) {
         existingCourse.sections.push({
@@ -242,29 +273,88 @@ const myCourses = async (
     },
     []
   );
-  return courseAndSchedule;
+  return couseAndSchedule;
 };
-const getMyStudents = async (
-  authUserId: string,
-  academicSemesterId: string,
-  courseId: string,
-  offeredCourseSectionId: string,
-  options: IPaginationOptions
-) => {
-  const result = await prisma.faculty.findFirst({
+
+const getMyCourseStudents = async (
+  filters: IFacultyMyCourseStudentsRequest,
+  options: IPaginationOptions,
+  authUser: any
+): Promise<IGenericResponse<Student[]>> => {
+  const { limit, page, skip } = paginationHelpers.calculatePagination(options);
+  console.log(authUser);
+  if (!filters.academicSemesterId) {
+    const currentAcademicSemester = await prisma.academicSemester.findFirst({
+      where: {
+        isCurrent: true,
+      },
+    });
+
+    if (currentAcademicSemester) {
+      filters.academicSemesterId = currentAcademicSemester.id;
+    }
+  }
+
+  const offeredCourseSections =
+    await prisma.studentSemesterRegistrationCourse.findMany({
+      where: {
+        offeredCourse: {
+          course: {
+            id: filters.courseId,
+          },
+        },
+        offeredCourseSection: {
+          offeredCourse: {
+            semesterRegistration: {
+              academicSemester: {
+                id: filters.academicSemesterId,
+              },
+            },
+          },
+          id: filters.offeredCourseSectionId,
+        },
+      },
+      include: {
+        student: true,
+      },
+      take: limit,
+      skip,
+    });
+
+  const students = offeredCourseSections.map(
+    offeredCourseSection => offeredCourseSection.student
+  );
+
+  const total = await prisma.studentSemesterRegistrationCourse.count({
     where: {
-      facultyId: authUserId,
+      offeredCourse: {
+        course: {
+          id: filters.courseId,
+        },
+      },
+      offeredCourseSection: {
+        offeredCourse: {
+          semesterRegistration: {
+            academicSemester: {
+              id: filters.academicSemesterId,
+            },
+          },
+        },
+        id: filters.offeredCourseSectionId,
+      },
     },
   });
-  console.log(
-    'au',
-    result,
-    academicSemesterId,
-    courseId,
-    offeredCourseSectionId,
-    options
-  );
+
+  return {
+    meta: {
+      total,
+      page,
+      limit,
+    },
+    data: students,
+  };
 };
+
 const createFacultyFromEvent = async (
   e: FacultyCreatedEvent
 ): Promise<void> => {
@@ -273,6 +363,7 @@ const createFacultyFromEvent = async (
     firstName: e.name.firstName,
     lastName: e.name.lastName,
     middleName: e.name.middleName,
+    profileImage: e.profileImage,
     email: e.email,
     contactNo: e.contactNo,
     gender: e.gender,
@@ -281,8 +372,11 @@ const createFacultyFromEvent = async (
     academicDepartmentId: e.academicDepartment.syncId,
     academicFacultyId: e.academicFaculty.syncId,
   };
-  await insertIntoDB(faculty as Faculty);
+
+  const data = await insertIntoDB(faculty as Faculty);
+  console.log('RES: ', data);
 };
+
 const updateFacultyFromEvent = async (e: any): Promise<void> => {
   const isExist = await prisma.faculty.findFirst({
     where: {
@@ -316,16 +410,17 @@ const updateFacultyFromEvent = async (e: any): Promise<void> => {
     console.log(res);
   }
 };
+
 export const FacultyService = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
-  deleteByIdFromDB,
   updateOneInDB,
+  deleteByIdFromDB,
   assignCourses,
   removeCourses,
   myCourses,
-  getMyStudents,
+  getMyCourseStudents,
   createFacultyFromEvent,
   updateFacultyFromEvent,
 };

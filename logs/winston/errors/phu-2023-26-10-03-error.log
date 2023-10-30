@@ -1,0 +1,100 @@
+Thu Oct 26 2023 3:22:39 [PH] error: 
+Invalid `prisma.faculty.create()` invocation:
+
+{
+  data: {
+    facultyId: "F-00001",
+    firstName: "Alfat ",
+    lastName: "Jahan",
+    middleName: "Rony",
+    email: "alfat@gmail.com",
+    contactNo: "014580056",
+    gender: "male",
+    bloodGroup: "O+",
+    designation: "Lecturer",
+    academicDepartmentId: "7103e84d-83d3-4d42-995c-844118c873c8",
+    academicFacultyId: "fb4a8584-7f3b-4585-adac-991495a2787f",
++   profileImage: String
+  },
+  include: {
+    academicFaculty: true,
+    academicDepartment: true
+  }
+}
+
+Argument `profileImage` is missing.
+Thu Oct 26 2023 3:24:37 [PH] error: 
+Invalid `prisma.faculty.create()` invocation:
+
+{
+  data: {
+    facultyId: "F-00001",
+    firstName: "Alfat ",
+    lastName: "Jahan",
+    middleName: "Rony",
+    email: "alfat@gmail.com",
+    contactNo: "014580056",
+    gender: "male",
+    bloodGroup: "O+",
+    designation: "Lecturer",
+    academicDepartmentId: "7103e84d-83d3-4d42-995c-844118c873c8",
+    academicFacultyId: "fb4a8584-7f3b-4585-adac-991495a2787f",
++   profileImage: String
+  },
+  include: {
+    academicFaculty: true,
+    academicDepartment: true
+  }
+}
+
+Argument `profileImage` is missing.
+Thu Oct 26 2023 3:26:49 [PH] error: 
+Invalid `prisma.faculty.create()` invocation:
+
+{
+  data: {
+    facultyId: "F-00001",
+    firstName: "Alfat ",
+    lastName: "Jahan",
+    middleName: "Rony",
+    email: "alfat@gmail.com",
+    contactNo: "014580056",
+    gender: "male",
+    bloodGroup: "O+",
+    designation: "Lecturer",
+    academicDepartmentId: "7103e84d-83d3-4d42-995c-844118c873c8",
+    academicFacultyId: "fb4a8584-7f3b-4585-adac-991495a2787f",
++   profileImage: String
+  },
+  include: {
+    academicFaculty: true,
+    academicDepartment: true
+  }
+}
+
+Argument `profileImage` is missing.
+Thu Oct 26 2023 3:35:42 [PH] error: 
+Invalid `prisma.faculty.create()` invocation:
+
+{
+  data: {
+    facultyId: "F-00001",
+    firstName: "Alfat ",
+    lastName: "Jahan",
+    middleName: "Rony",
+    email: "alfat@gmail.com",
+    contactNo: "014580056",
+    gender: "male",
+    bloodGroup: "O+",
+    designation: "Lecturer",
+    academicDepartmentId: "7103e84d-83d3-4d42-995c-844118c873c8",
+    academicFacultyId: "fb4a8584-7f3b-4585-adac-991495a2787f",
++   profileImage: String
+  },
+  include: {
+    academicFaculty: true,
+    academicDepartment: true
+  }
+}
+
+Argument `profileImage` is missing.

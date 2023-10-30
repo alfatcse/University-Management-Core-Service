@@ -34,6 +34,18 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Offered Course Section Created',
+    data: result.data,
+    meta: result.meta,
+  });
+});
+const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
+  const result = await offeredCourseSectionService.deleteByIdFromDB(
+    req.params.id
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Offered Course Section Created',
     data: result,
   });
 });
@@ -41,4 +53,5 @@ export const OfferedCourseSectionController = {
   insertIntoDB,
   getByIdFromDB,
   getAllFromDB,
+  deleteByIdFromDB,
 };

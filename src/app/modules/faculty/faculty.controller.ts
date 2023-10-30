@@ -15,7 +15,6 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
-
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, facultyFilterableFields);
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
@@ -28,7 +27,6 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     data: result.data,
   });
 });
-
 const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await FacultyService.getByIdFromDB(id);
@@ -49,7 +47,6 @@ const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
-
 const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await FacultyService.deleteByIdFromDB(id);
@@ -84,6 +81,7 @@ const myCourses = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
   const filter = pick(req.query, ['academicSemesterId', 'courseId']);
   const result = await FacultyService.myCourses(user, filter);
+  console.log(result);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -93,23 +91,23 @@ const myCourses = catchAsync(async (req: Request, res: Response) => {
 });
 const getMyStudents = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
-  const academicSemesterId: string = req?.query?.academicSemesterId as string;
-  const courseId: string = req?.query?.courseId as string;
-  const offeredCourseSectionId: string = req?.query
-    ?.offeredCourseSectionId as string;
-  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
-  const result = await FacultyService.getMyStudents(
-    user.id,
-    academicSemesterId,
-    courseId,
-    offeredCourseSectionId,
-    options
+  const filters = pick(req.query, [
+    'academicSemesterId',
+    'courseId',
+    'offeredCourseSectionId',
+  ]);
+  const options = pick(req.query, ['limit', 'page']);
+  const result = await FacultyService.getMyCourseStudents(
+    filters,
+    options,
+    user
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'My Courses data fetched successfully!',
-    data: result,
+    message: 'Faculty course students fetched successfully',
+    meta: result.meta,
+    data: result.data,
   });
 });
 export const FacultyController = {

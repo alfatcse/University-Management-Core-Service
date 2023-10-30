@@ -44,7 +44,7 @@ const createSemesterPayment = async (
       },
     },
   });
-
+  console.log('Is Exist::', isExist);
   if (!isExist) {
     const dataToInsert = {
       studentId: payload.studentId,
@@ -54,10 +54,11 @@ const createSemesterPayment = async (
       totalDueAmount: payload.totalPaymentAmount,
       totalPaidAmount: 0,
     };
-
-    await prismaClient.studentSemesterPayment.create({
+    console.log(dataToInsert);
+    const p = await prismaClient.studentSemesterPayment.create({
       data: dataToInsert,
     });
+    console.log('PPPP:::', p);
   }
 };
 

@@ -94,7 +94,7 @@ model Faculty {
   firstName    String
   lastName     String
   middleName   String
-  profileImage String
+  profileImage String?
   email        String
   contactNo    String
   gender       String

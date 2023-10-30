@@ -22,7 +22,8 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Offered Courses Fetched',
-    data: result,
+    data: result.data,
+    meta: result.meta,
   });
 });
 
