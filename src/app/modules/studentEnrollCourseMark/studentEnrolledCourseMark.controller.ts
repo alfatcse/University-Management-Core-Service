@@ -7,7 +7,6 @@ import { studentEnrolledCourseMarkFilterableFields } from './studentEnrolledCour
 import { StudentEnrolledCourseMarkService } from './studentEnrolledCourseMark.service';
 
 const updateStudentMarks = catchAsync(async (req: Request, res: Response) => {
-  console.log(req.body);
   const result = await StudentEnrolledCourseMarkService.updateStudentMarks(
     req.body
   );

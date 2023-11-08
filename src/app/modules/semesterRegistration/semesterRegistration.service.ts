@@ -430,6 +430,7 @@ const startNewSemester = async (
                   academicSemesterId: semesterRegistration.academicSemesterId,
                 },
               });
+
             if (!isExistEnrolledData) {
               const enrolledCourseData = {
                 studentId: item.studentId,

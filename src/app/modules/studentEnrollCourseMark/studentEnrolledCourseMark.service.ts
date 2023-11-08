@@ -42,6 +42,7 @@ const createStudentEnrolledCourseDefaultMark = async (
       },
     },
   });
+
   if (!isExitMidtermData) {
     await prisma.studentEnrolledCourseMark.create({
       data: {
