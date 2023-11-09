@@ -6,16 +6,6 @@
     "auditLog": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/.7e4c0113b4fc3736f5fd4ae59cf1f66988b10b29-audit.json",
     "files": [
         {
-            "date": 1698342875800,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-26-10-19-success.log",
-            "hash": "81edc01bbc251713130747c60538d4896a9fcd8c92f5f134f7011239a7d86511"
-        },
-        {
-            "date": 1698343559874,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-26-10-20-success.log",
-            "hash": "2542e18697230417d7336f10d74e4020040e0102274800043ce4842babd318d1"
-        },
-        {
             "date": 1698581618365,
             "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-29-10-13-success.log",
             "hash": "70293ebb22d23bf953acfcfe367d87184bcce92b4fcfb1ad3650c85aab9c87fc"
@@ -109,6 +99,16 @@
             "date": 1699554532174,
             "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-09-11-19-success.log",
             "hash": "00912cc9bef7312efe6328c7d0425a25229f339cd56eb96af66b71c607654362"
+        },
+        {
+            "date": 1699556979016,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-09-11-20-success.log",
+            "hash": "0a2466503208e1d54477ad3e6b4efc8762f3a568ba36a5b82b720708c9597394"
+        },
+        {
+            "date": 1699566960542,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-09-11-22-success.log",
+            "hash": "f0c1fded5319d98a3f2470264aa90406554ac44a3f54debc51e2a59dd79e69d4"
         }
     ],
     "hashType": "sha256"

@@ -6,16 +6,6 @@
     "auditLog": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/.ee8c8533727c95e73f3316a935261b1821152a80-audit.json",
     "files": [
         {
-            "date": 1698342875804,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-26-10-19-error.log",
-            "hash": "526cb38fb4a1e4e7f615642f564020eb125a059d7b806fd0eee2477557c79a43"
-        },
-        {
-            "date": 1698343643751,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-26-10-20-error.log",
-            "hash": "a5023ef21f188a6369f8f7493e3f0bc57d9cc4dc362fe513a04e9b4b17822f5b"
-        },
-        {
             "date": 1698581628569,
             "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-29-10-13-error.log",
             "hash": "573471b806673e95165a003657005828e3c3828be00e7e758a1da29314fdd063"
@@ -114,6 +104,16 @@
             "date": 1699554572692,
             "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-09-11-19-error.log",
             "hash": "9436f8f0b1e7dacb4e7bb2c88b0bff09d263d9ed9a5d8eba723f232bb968fe55"
+        },
+        {
+            "date": 1699556984942,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-09-11-20-error.log",
+            "hash": "08f2b6e73cdd30dcf1e21d49e234958d94a3eef2f54c0dcdb6d5e25cb2845cae"
+        },
+        {
+            "date": 1699566960550,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/errors/phu-2023-09-11-22-error.log",
+            "hash": "62bd9ea284fbf5e82f8f19082d930fab24d94abcf9c2828f18b1f163b09d29fe"
         }
     ],
     "hashType": "sha256"

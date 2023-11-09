@@ -185,7 +185,7 @@ const initiatePayment = async (payload: any, user: any) => {
 
   if (isPendingPaymentExist) {
     const paymentResponse = await axios.post(
-      config.initPaymentEndpoint || 'http://localhost:3333/api/v1/payment/init',
+      config.initPaymentEndpoint || 'http://localhost:5005/api/v1/payment/init',
       {
         amount: isPendingPaymentExist.dueAmount,
         transactionId: isPendingPaymentExist.transactionId,
