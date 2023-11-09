@@ -6,41 +6,6 @@
     "auditLog": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/.7e4c0113b4fc3736f5fd4ae59cf1f66988b10b29-audit.json",
     "files": [
         {
-            "date": 1698228004281,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-25-10-12-success.log",
-            "hash": "c04a609c50dbfed004abac66c619e8652515533243fc7f9458d99234164c080d"
-        },
-        {
-            "date": 1698236449839,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-25-10-14-success.log",
-            "hash": "2d459034928dbfb5678c279991d327f061941ffbf5ce3d7427061715e5b7c485"
-        },
-        {
-            "date": 1698258324671,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-25-10-20-success.log",
-            "hash": "28a8b21ba4954b65dfb8146008e7026ca915eaea3eb30294075529cf02a4a0db"
-        },
-        {
-            "date": 1698261030437,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-25-10-21-success.log",
-            "hash": "45b43bbda7dac04875e3cb61770d2fff7f951576d8b15b9dc716539c0678ab1f"
-        },
-        {
-            "date": 1698271653429,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-26-10-00-success.log",
-            "hash": "4f60588f5733ce86257344094cf24a5fe2d54d915bafea1dc56effd9a844d9c8"
-        },
-        {
-            "date": 1698276147776,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-26-10-01-success.log",
-            "hash": "d0f497378001958fb8f26ba011240948ce26d1b85773d3c374fc7118f8e3c25e"
-        },
-        {
-            "date": 1698282144532,
-            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-26-10-03-success.log",
-            "hash": "95cc6425c5a69ce4c7b76b5183c60627ce70d4e81a0289e9edafc22b4f8cfb93"
-        },
-        {
             "date": 1698342875800,
             "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-26-10-19-success.log",
             "hash": "81edc01bbc251713130747c60538d4896a9fcd8c92f5f134f7011239a7d86511"
@@ -134,6 +99,16 @@
             "date": 1699375827432,
             "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-07-11-17-success.log",
             "hash": "638025b605831e59d2db66c290944d24fc6190296dc6b416250c80dd203a15f0"
+        },
+        {
+            "date": 1699463655724,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-08-11-18-success.log",
+            "hash": "56bee9ff2641a26eba7762661d0116dbed6b0d1d39f42706d49fce51eb7b5d70"
+        },
+        {
+            "date": 1699554532174,
+            "name": "/Users/apple/Desktop/Programming/Lavel2/Project/university-management-core-service/logs/winston/successes/phu-2023-09-11-19-success.log",
+            "hash": "00912cc9bef7312efe6328c7d0425a25229f339cd56eb96af66b71c607654362"
         }
     ],
     "hashType": "sha256"
