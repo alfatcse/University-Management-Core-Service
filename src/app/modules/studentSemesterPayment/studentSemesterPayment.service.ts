@@ -34,7 +34,7 @@ const createSemesterPayment = async (
     totalPaymentAmount: number;
   }
 ) => {
-  const isExist = await prismaClient.studentSemesterPayment.findFirst({
+  const isExist = await prisma.studentSemesterPayment.findFirst({
     where: {
       student: {
         id: payload.studentId,
@@ -44,7 +44,7 @@ const createSemesterPayment = async (
       },
     },
   });
-  console.log('Is Exist::', isExist);
+
   if (!isExist) {
     const dataToInsert = {
       studentId: payload.studentId,
@@ -54,11 +54,9 @@ const createSemesterPayment = async (
       totalDueAmount: payload.totalPaymentAmount,
       totalPaidAmount: 0,
     };
-    console.log(dataToInsert);
-    const p = await prismaClient.studentSemesterPayment.create({
+    await prisma.studentSemesterPayment.create({
       data: dataToInsert,
     });
-    console.log('PPPP:::', p);
   }
 };
 
@@ -68,9 +66,7 @@ const getAllFromDB = async (
 ): Promise<IGenericResponse<StudentSemesterPayment[]>> => {
   const { limit, page, skip } = paginationHelpers.calculatePagination(options);
   const { searchTerm, ...filterData } = filters;
-
   const andConditions = [];
-
   if (searchTerm) {
     andConditions.push({
       OR: studentSemesterPaymentSearchableFields.map(field => ({
