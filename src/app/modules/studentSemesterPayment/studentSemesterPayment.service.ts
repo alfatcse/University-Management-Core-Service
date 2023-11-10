@@ -253,7 +253,7 @@ const completePayment = async (payload: { transactionId: string }) => {
   });
 
   if (!paymentDetails) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Payment details not foundd!');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Payment details not found!');
   }
 
   if (paymentDetails.isPaid) {
