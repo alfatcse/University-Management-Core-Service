@@ -198,7 +198,7 @@ const initiatePayment = async (payload: any, user: any) => {
     );
 
     return {
-      paymentUrl: paymentResponse.data,
+      paymentUrl: paymentResponse.data.data,
       paymentDetails: isPendingPaymentExist,
     };
   }
