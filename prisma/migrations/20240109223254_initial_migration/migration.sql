@@ -80,7 +80,7 @@ CREATE TABLE "faculties" (
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "middleName" TEXT NOT NULL,
-    "profileImage" TEXT NOT NULL,
+    "profileImage" TEXT,
     "email" TEXT NOT NULL,
     "contactNo" TEXT NOT NULL,
     "gender" TEXT NOT NULL,
