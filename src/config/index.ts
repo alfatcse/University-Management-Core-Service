@@ -20,6 +20,7 @@ export default {
   },
   redis: {
     url: process.env.REDIS_URL,
+    redisPass:process.env.REDIS_PASS,
     expires_in: process.env.REDIS_TOKEN_EXPIRES_IN,
   },
   initPaymentEndpoint: process.env.INIT_PAYMENT_URL,
